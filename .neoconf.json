@@ -1,0 +1,12 @@
+{
+    "lspconfig": {
+        "lua_ls": {
+            "Lua.diagnostics.globals": [
+                "vim"
+            ],
+            "Lua.workspace.library": [
+                "~/.local/share/nvim/lazy"
+            ]
+        }
+    }
+}
