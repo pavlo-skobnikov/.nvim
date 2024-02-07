@@ -42,7 +42,7 @@ UTIL.register_keys({
 }, { prefix = '<leader>', mode = 'v' })
 
 UTIL.register_keys({
-  p = { '"_dP', 'Paste without copying' },
+  p = { '"_dp', 'Paste without copying' },
 }, { prefix = '<leader>', mode = { 'v', 'x' } })
 
 local autocmd = vim.api.nvim_create_autocmd
