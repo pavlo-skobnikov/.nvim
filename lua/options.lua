@@ -61,11 +61,10 @@ for k, v in pairs(opt_options) do
 end
 
 local g_options = {
-  --- Sane defaults for `netrw`
+  netrw_keepdir = 0, -- Sane defaults for `netrw`
   netrw_browse_split = 0,
-  netrw_banner = 0,
-  netrw_winsize = 25,
-  --- END
+  netrw_winsize = 35,
+  netrw_localcopydircmd = 'cp -r',
 }
 
 for k, v in pairs(g_options) do
