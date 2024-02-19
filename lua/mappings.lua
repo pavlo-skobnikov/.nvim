@@ -8,8 +8,6 @@
 --   operator_pending_mode = 'o'
 
 UTIL.register_keys {
-  ['-'] = { vim.cmd.Ex, 'Open file explorer' },
-
   ['<esc>'] = {
     function()
       vim.cmd ':noh'
@@ -80,8 +78,8 @@ autocmd('LspAttach', {
     }, opts)
 
     UTIL.register_keys({
-      ['<c-s-k>'] = { buf.signature_help, 'Signature help' },
-    }, { mode = 'i' })
+      ['<c-m-k>'] = { buf.signature_help, 'Signature help' },
+    }, { mode = { 'n', 'v', 'i' } })
   end,
   desc = 'Set LSP key mappings that are universal to all LSP clients',
 })
