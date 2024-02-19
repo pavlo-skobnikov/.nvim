@@ -1,7 +1,7 @@
 return {
   'catppuccin/nvim', -- A purrfect colorscheme
   lazy = false,
-  priority = 0,
+  priority = 1000,
   main = 'catppuccin',
   opts = { flavour = 'frappe' },
   config = function(_, opts)
