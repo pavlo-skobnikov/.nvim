@@ -59,14 +59,3 @@ local opt_options = {
 for k, v in pairs(opt_options) do
   vim.opt[k] = v
 end
-
-local g_options = {
-  netrw_keepdir = 0, -- Sane defaults for `netrw`
-  netrw_browse_split = 0,
-  netrw_winsize = 35,
-  netrw_localcopydircmd = 'cp -r',
-}
-
-for k, v in pairs(g_options) do
-  vim.g[k] = v
-end
