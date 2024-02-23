@@ -33,22 +33,31 @@ return {
       -- Setup mappings
       UTIL.register_keys({
         name = 'dap',
-        D = { dap_ui.toggle, 'DAP UI' }, -- General mappings
-        O = { dap.repl.open, 'Open REPL' },
-        C = { dap.continue, 'Continue' },
-        R = { dap.run_last, 'Run last' },
-        n = { dap.step_over, 'Step Next' }, -- Step mappings
-        i = { dap.step_into, 'Step Into' },
-        o = { dap.step_out, 'Step Out' },
-        b = { dap.toggle_breakpoint, 'Toggle breakpoint' }, -- Breakpoint mappings
-        c = {
-          function() dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ') end,
-          'Toggle conditional breakpoint',
+        d = { dap_ui.toggle, 'DAP UI' }, -- General mappings
+        o = { dap.repl.open, 'Open REPL' },
+        r = {
+          name = 'run',
+          c = { dap.continue, 'Continue' },
+          r = { dap.run_last, 'Run last' },
         },
-        l = {
-          function() dap.set_breakpoint(nil, nil, vim.fn.input 'Log point message: ') end,
-          'Toggle log point',
+        s = {
+          name = 'step',
+          n = { dap.step_over, 'Step Next' },
+          i = { dap.step_into, 'Step Into' },
+          o = { dap.step_out, 'Step Out' },
         },
+        b = {
+          name = 'breakpoint',
+          b = { dap.toggle_breakpoint, 'Toggle breakpoint' },
+          c = {
+            function() dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ') end,
+            'Toggle conditional breakpoint',
+          },
+          l = {
+            function() dap.set_breakpoint(nil, nil, vim.fn.input 'Log point message: ') end,
+            'Toggle log point',
+          },
+        }, -- Breakpoint mappings
         f = {
           name = 'find',
           c = { dap_telescope.commands, 'Commands' },
