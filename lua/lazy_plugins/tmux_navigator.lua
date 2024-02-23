@@ -9,7 +9,6 @@ return {
         ['<C-j>'] = { '<CMD>TmuxNavigateDown<CR>', 'Move a split down' },
         ['<C-k>'] = { '<CMD>TmuxNavigateUp<CR>', 'Move a split up' },
         ['<C-l>'] = { '<CMD>TmuxNavigateRight<CR>', 'Move a split right' },
-        ['<C-\\>'] = { '<CMD>TmuxNavigatePrevious<CR>', 'Move to the previous split' },
       }, { mode = { 'n', 'x', 'o' } })
 
       vim.cmd [[
