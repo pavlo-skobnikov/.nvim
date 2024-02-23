@@ -11,16 +11,10 @@ return {
     UTIL.register_keys {
       ['<leader>'] = {
         a = { function() harpoon:list():append() end, 'Add to Harpoon' },
-        l = {
-          function()
-            harpoon_ui:toggle_quick_menu(harpoon:list())
-            harpoon_ui:configure({ save_on_toggle = false }) -- This is a hack to get the settings to apply
-          end,
-          'Toggle Harpoon menu',
-        },
+        l = { function() harpoon_ui:toggle_quick_menu(harpoon:list()) end, 'Toggle Harpoon menu' },
       },
-      ['<c-a-p>'] = { function() harpoon:list():prev() end, 'Harpoon previous' },
-      ['<c-a-n>'] = { function() harpoon:list():next() end, 'Harpoon next' },
+      ['[h'] = { function() harpoon:list():prev() end, 'Previous ' },
+      [']h'] = { function() harpoon:list():next() end, 'Harpoon next' },
     }
 
     for i = 1, 9 do
