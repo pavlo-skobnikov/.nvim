@@ -31,3 +31,10 @@ autocmd('FileType', {
   callback = function() UTIL.set_tab_spaces(2) end,
   desc = 'Set Tab to 2 spaces for specific filetypes',
 })
+
+autocmd('BufLeave', {
+  group = augroup('SaveFileOnFocusLost', { clear = true }),
+  pattern = { '*' },
+  callback = function() vim.cmd 'silent! wa' end,
+  desc = 'Save the file when its related buffer loses focus',
+})
