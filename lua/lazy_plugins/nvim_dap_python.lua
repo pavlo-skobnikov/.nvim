@@ -9,11 +9,13 @@ return {
 
     dap_py.setup(debugpy_path)
 
-    UTIL.register_keys({
-      name = 'major',
-      c = { dap_py.test_class, 'Test class' },
-      n = { dap_py.test_method, 'Test nearest' },
-      s = { dap_py.debug_selection, 'Test selection' },
-    }, { prefix = 'gm' })
+    UTIL.register_keys {
+      ['<leader>m'] = {
+        name = 'major',
+        c = { dap_py.test_class, 'Test class' },
+        n = { dap_py.test_method, 'Test nearest' },
+        s = { dap_py.debug_selection, 'Test selection' },
+      },
+    }
   end,
 }

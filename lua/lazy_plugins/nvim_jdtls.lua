@@ -68,7 +68,7 @@ local function setup_debugger(bufnr)
     c = { jdtls.test_class, 'Test class' },
     n = { jdtls.test_nearest_method, 'Test nearest' },
     a = { attach_to_debugger, 'Attach to debugger' },
-  }, { prefix = 'gm', buffer = bufnr })
+  }, { prefix = '<leader>m', buffer = bufnr })
 end
 
 -- Calls code lens and sets up an autocmd to refresh it after saving

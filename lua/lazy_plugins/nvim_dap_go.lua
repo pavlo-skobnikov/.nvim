@@ -7,10 +7,12 @@ return {
 
     dap_go.setup()
 
-    UTIL.register_keys({
-      name = 'major',
-      n = { dap_go.debug_test, 'Test nearest' },
-      l = { dap_go.debug_last_test, 'Test last' },
-    }, { prefix = 'gm' })
+    UTIL.register_keys {
+      ['<leader>m'] = {
+        name = 'major',
+        n = { dap_go.debug_test, 'Test nearest' },
+        l = { dap_go.debug_last_test, 'Test last' },
+      },
+    }
   end,
 }

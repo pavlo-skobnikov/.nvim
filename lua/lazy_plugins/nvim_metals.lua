@@ -30,7 +30,7 @@ return {
 
       -- Set Metals-specific keymaps
       UTIL.register_keys {
-        ['gm'] = {
+        ['<leader>m'] = {
           name = 'major',
           w = { function() metals.hover_worksheet() end, 'Open worksheet' },
         },
