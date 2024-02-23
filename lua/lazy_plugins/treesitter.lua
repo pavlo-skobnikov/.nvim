@@ -62,8 +62,8 @@ return {
           enable = true,
           lookahead = true,
           keymaps = {
-            ['ie'] = { query = '@parameter.inner', desc = 'inner argument element' },
-            ['ae'] = { query = '@parameter.outer', desc = 'around argument element' },
+            ['ia'] = { query = '@parameter.inner', desc = 'inner argument' },
+            ['aa'] = { query = '@parameter.outer', desc = 'around argument' },
             ['if'] = { query = '@function.inner', desc = 'inner function' },
             ['af'] = { query = '@function.outer', desc = 'around function' },
           },
@@ -71,12 +71,12 @@ return {
         swap = {
           enable = true,
           swap_next = {
-            ['>e'] = { query = '@parameter.inner', desc = 'Swap argument forwards' },
-            ['>f'] = { query = '@function.outer', desc = 'Swap function forwards' },
+            ['<leader>sna'] = { query = '@parameter.inner', desc = 'Swap argument forwards' },
+            ['<leader>snf'] = { query = '@function.outer', desc = 'Swap function forwards' },
           },
           swap_previous = {
-            ['<e'] = { query = '@parameter.inner', desc = 'Swap argument backwards' },
-            ['<f'] = { query = '@function.outer', desc = 'Swap function backwards' },
+            ['<leader>sna'] = { query = '@parameter.inner', desc = 'Swap argument backwards' },
+            ['<leader>snf'] = { query = '@function.outer', desc = 'Swap function backwards' },
           },
         },
         move = {
@@ -96,6 +96,7 @@ return {
     config = function(_, opts)
       require('nvim-treesitter.configs').setup(opts)
 
+      UTIL.register_keys { ['<leader>s'] = { name = 'swap' } }
       UTIL.register_keys({ ['['] = 'backwards', [']'] = 'forwards' }, { mode = { 'o', 'x' } })
 
       local repeat_move = require 'nvim-treesitter.textobjects.repeatable_move'

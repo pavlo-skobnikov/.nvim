@@ -40,7 +40,7 @@ UTIL.register_keys({
 }, { prefix = '<leader>', mode = 'v' })
 
 UTIL.register_keys({
-  p = { '"_dp', 'Paste without copying' },
+  p = { '"_dP', 'Paste without copying' },
 }, { prefix = '<leader>', mode = { 'v', 'x' } })
 
 local autocmd = vim.api.nvim_create_autocmd
@@ -58,19 +58,27 @@ autocmd('LspAttach', {
     local opts = { buffer = e.buf }
 
     UTIL.register_keys({
-      g = {
+      ['<leader>r'] = {
+        name = 'refactor',
         a = { buf.code_action, 'Code action' },
+        l = { codelens.run, 'Run code lens' },
+
+        n = { buf.rename, 'Rename' },
+        h = { buf.document_highlight, 'Highlight symbol' },
+
+        f = { diagnostic.open_float, 'Open float' },
+
+        t = { telescope_builtin.lsp_type_definitions, 'Go to type definition' },
+        i = { telescope_builtin.lsp_implementations, 'Go to implementation' },
+
+        r = { telescope_builtin.lsp_references, 'Search references' },
         s = { telescope_builtin.lsp_document_symbols, 'Search document symbols' },
-        S = { telescope_builtin.lsp_workspace_symbols, 'Search workspace symbols' },
-        d = { buf.definition, 'Go to definition' },
-        D = { buf.type_definition, 'Go to type definition' },
-        h = { buf.implementation, 'Go to implementation hierarchy' },
-        H = { buf.document_highlight, 'Highlight symbol' },
-        L = { codelens.run, 'Code lens' },
-        R = { buf.rename, 'Rename' },
-        o = { diagnostic.open_float, 'Open float' },
-        O = { buf.outgoing_calls, 'Search outgoing calls' },
-        I = { buf.incoming_calls, 'Search incoming calls' },
+        w = { telescope_builtin.lsp_dynamic_workspace_symbols, 'Search workspace symbols' },
+      },
+      g = {
+        d = { telescope_builtin.lsp_definitions, 'Go to definition' },
+        O = { telescope_builtin.lsp_outgoing_calls, 'Search outgoing calls' },
+        I = { telescope_builtin.lsp_incoming_calls, 'Search incoming calls' },
       },
       ['[d'] = { diagnostic.goto_prev, 'Previous diagnostic' },
       [']d'] = { diagnostic.goto_next, 'Next diagnostic' },
@@ -78,7 +86,7 @@ autocmd('LspAttach', {
     }, opts)
 
     UTIL.register_keys({
-      ['<c-m-k>'] = { buf.signature_help, 'Signature help' },
+      ['<c-s-k>'] = { buf.signature_help, 'Signature help' },
     }, { mode = { 'n', 'v', 'i' } })
   end,
   desc = 'Set LSP key mappings that are universal to all LSP clients',
