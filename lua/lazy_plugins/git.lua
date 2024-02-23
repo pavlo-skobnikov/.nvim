@@ -45,8 +45,8 @@ return {
         end
 
         UTIL.register_keys {
-          [']g'] = { get_hunk_move_fn(']g', git_signs.next_hunk), 'Next git change' },
-          ['[g'] = { get_hunk_move_fn('[g', git_signs.prev_hunk), 'Previous git change' },
+          [']c'] = { get_hunk_move_fn(']c', git_signs.next_hunk), 'Next git change' },
+          ['[c'] = { get_hunk_move_fn('[c', git_signs.prev_hunk), 'Previous git change' },
         }
 
         -- Hunk actions
