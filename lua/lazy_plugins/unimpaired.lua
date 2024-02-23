@@ -1,5 +1,5 @@
 return {
-  'Tummetott/unimpaired.nvim', -- Useful && comfy mappings for basic Vim commands
+  'Tummetott/unimpaired.nvim', -- Useful & comfy mappings for basic Vim commands
   dependencies = { 'folke/which-key.nvim' },
   event = 'VeryLazy',
   opts = {
