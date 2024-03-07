@@ -68,17 +68,19 @@ autocmd('LspAttach', {
 
         f = { diagnostic.open_float, 'Open float' },
 
-        t = { telescope_builtin.lsp_type_definitions, 'Go to type definition' },
-        i = { telescope_builtin.lsp_implementations, 'Go to implementation' },
-
         r = { telescope_builtin.lsp_references, 'Search references' },
-        s = { telescope_builtin.lsp_document_symbols, 'Search document symbols' },
+        d = { telescope_builtin.lsp_document_symbols, 'Search document symbols' },
         w = { telescope_builtin.lsp_dynamic_workspace_symbols, 'Search workspace symbols' },
       },
       g = {
         d = { telescope_builtin.lsp_definitions, 'Go to definition' },
-        O = { telescope_builtin.lsp_outgoing_calls, 'Search outgoing calls' },
-        I = { telescope_builtin.lsp_incoming_calls, 'Search incoming calls' },
+        l = {
+          name = 'lsp',
+          t = { buf.type_definition, 'Go to type definition' },
+          i = { buf.implementation, 'Go to implementation' },
+          O = { telescope_builtin.lsp_outgoing_calls, 'Search outgoing calls' },
+          I = { telescope_builtin.lsp_incoming_calls, 'Search incoming calls' },
+        },
       },
       ['[d'] = { diagnostic.goto_prev, 'Previous diagnostic' },
       [']d'] = { diagnostic.goto_next, 'Next diagnostic' },
