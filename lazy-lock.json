@@ -31,6 +31,7 @@
   "nvim-metals": { "branch": "main", "commit": "9f498a5f74771cedaa05871a79df91aa09ad6bd9" },
   "nvim-paredit": { "branch": "master", "commit": "d9bc8d34d440b4daa56aa16cc440b674facd8f89" },
   "nvim-treesitter": { "branch": "master", "commit": "e159a531e5470f48a174425713a82208952b9b1c" },
+  "nvim-treesitter-context": { "branch": "master", "commit": "b8b7e52c1517d401d7c519787d5dc4528c41291a" },
   "nvim-treesitter-textobjects": { "branch": "master", "commit": "7f00d94543f1fd37cab2afa2e9a6cd54e1c6b9ef" },
   "nvim-web-devicons": { "branch": "master", "commit": "14ac5887110b06b89a96881d534230dac3ed134d" },
   "oil.nvim": { "branch": "master", "commit": "132b4ea0740c417b9d717411cab4cf187e1fd095" },

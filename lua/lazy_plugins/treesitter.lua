@@ -112,6 +112,21 @@ return {
     end,
   },
   {
+    'nvim-treesitter/nvim-treesitter-context',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'folke/which-key.nvim' },
+    event = 'VeryLazy',
+    config = function()
+      local treesitter_context = require 'treesitter-context'
+
+      UTIL.register_keys {
+        ['glc'] = {
+          function() treesitter_context.go_to_context(vim.v.count1) end,
+          'Go to surrounding context',
+        },
+      }
+    end,
+  },
+  {
     'nvim-treesitter/playground', -- Treesitter query playground
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'folke/which-key.nvim' },
     event = 'VeryLazy',
