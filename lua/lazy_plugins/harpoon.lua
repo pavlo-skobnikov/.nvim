@@ -4,14 +4,16 @@ return {
   dependencies = { 'nvim-lua/plenary.nvim' },
   config = function()
     local harpoon = require 'harpoon'
-    local harpoon_ui = require 'harpoon.ui'
 
     harpoon:setup()
 
     UTIL.register_keys {
       ['<leader>'] = {
         a = { function() harpoon:list():append() end, 'Add to Harpoon' },
-        l = { function() harpoon_ui:toggle_quick_menu(harpoon:list()) end, 'Toggle Harpoon menu' },
+        l = {
+          function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,
+          'Toggle Harpoon menu',
+        },
       },
       ['[h'] = { function() harpoon:list():prev() end, 'Previous ' },
       [']h'] = { function() harpoon:list():next() end, 'Harpoon next' },
