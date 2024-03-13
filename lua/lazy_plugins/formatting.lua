@@ -13,6 +13,7 @@ return {
       lua = { require('formatter.filetypes.lua')['stylua'] },
       python = { require('formatter.filetypes.python')['black'] },
       go = { require('formatter.filetypes.go')['goimports'] },
+      gleam = { function() pcall(vim.lsp.buf.format) end },
       java = { function() return { exe = 'google-java-format', args = { '-a', get_buffer_fname() }, stdin = true } end },
       clojure = { function() return { exe = 'cljfmt', args = { 'fix', get_buffer_fname() }, stdin = false } end },
       kotlin = { require('formatter.filetypes.kotlin')['ktlint'] },
