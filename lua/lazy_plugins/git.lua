@@ -57,8 +57,20 @@ return {
             name = 'hunks',
             s = { git_signs.stage_hunk, 'Stage hunk' },
             u = { git_signs.undo_stage_hunk, 'Undo stage hunk' },
-            h = { git_signs.reset_hunk, 'Reset hunk' },
-            b = { git_signs.reset_buffer, 'Reset buffer' },
+            h = {
+              function()
+                git_signs.reset_hunk()
+                vim.cmd 'silent! w'
+              end,
+              'Reset hunk',
+            },
+            b = {
+              function()
+                git_signs.reset_buffer()
+                vim.cmd 'silent! w'
+              end,
+              'Reset buffer',
+            },
             p = { git_signs.preview_hunk, 'Preview hunk' },
             i = { function() git_signs.blame_line { full = true } end, 'Git info for current line' },
             d = { git_signs.diffthis, 'Diff' },

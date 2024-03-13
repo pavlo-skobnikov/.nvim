@@ -34,6 +34,6 @@ return {
 
     require('formatter.init').setup(extended_opts)
 
-    UTIL.register_keys { ['<leader>='] = { ':Format<cr>', 'Format' } }
+    UTIL.register_keys { ['<leader>='] = { ':FormatWrite<cr>', 'Format & save' } }
   end,
 }

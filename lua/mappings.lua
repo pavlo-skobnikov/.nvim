@@ -50,7 +50,7 @@ autocmd('LspAttach', {
   group = augroup('SetLspKeymappings', { clear = true }),
   pattern = { '*' },
   callback = function(e)
-    local buf = vim.lsp.buf
+    local buffer = vim.lsp.buf
     local diagnostic = vim.diagnostic
     local codelens = vim.lsp.codelens
     local telescope_builtin = require 'telescope.builtin'
@@ -60,11 +60,27 @@ autocmd('LspAttach', {
     UTIL.register_keys({
       ['<leader>r'] = {
         name = 'refactor',
-        a = { buf.code_action, 'Code action' },
+        a = {
+          function()
+            -- To avoid the issue when the buffer is out of sync with the system file, which is
+            -- an issue for some LSP's
+            vim.cmd 'silent! w'
+            buffer.code_action()
+          end,
+          'Code action & save',
+        },
         l = { codelens.run, 'Run code lens' },
 
-        n = { buf.rename, 'Rename' },
-        h = { buf.document_highlight, 'Highlight symbol' },
+        n = {
+          function()
+            -- To avoid the issue when the buffer is out of sync with the system file, which is
+            -- an issue for some LSP's
+            vim.cmd 'silent! w'
+            buffer.rename()
+          end,
+          'Rename & save',
+        },
+        h = { buffer.document_highlight, 'Highlight symbol' },
 
         f = { diagnostic.open_float, 'Open float' },
 
@@ -76,19 +92,19 @@ autocmd('LspAttach', {
         d = { telescope_builtin.lsp_definitions, 'Go to definition' },
         l = {
           name = 'lsp',
-          t = { buf.type_definition, 'Go to type definition' },
-          i = { buf.implementation, 'Go to implementation' },
+          t = { buffer.type_definition, 'Go to type definition' },
+          i = { buffer.implementation, 'Go to implementation' },
           O = { telescope_builtin.lsp_outgoing_calls, 'Search outgoing calls' },
           I = { telescope_builtin.lsp_incoming_calls, 'Search incoming calls' },
         },
       },
       ['[d'] = { diagnostic.goto_prev, 'Previous diagnostic' },
       [']d'] = { diagnostic.goto_next, 'Next diagnostic' },
-      K = { buf.hover, 'Hover' },
+      K = { buffer.hover, 'Hover' },
     }, opts)
 
     UTIL.register_keys({
-      ['<c-s-k>'] = { buf.signature_help, 'Signature help' },
+      ['<c-s-k>'] = { buffer.signature_help, 'Signature help' },
     }, { mode = { 'n', 'v', 'i' } })
   end,
   desc = 'Set LSP key mappings that are universal to all LSP clients',
