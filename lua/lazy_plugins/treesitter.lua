@@ -6,7 +6,7 @@ return {
     build = ':TSUpdate',
     opts = {
       ensure_installed = {
-        'c', -- Required for Treesitter to function parsers
+        'c', -- Parsers required for Treesitter to function
         'lua',
         'vim',
         'vimdoc',
@@ -15,17 +15,9 @@ return {
         'gitattributes',
         'gitcommit',
         'gitignore',
-        'http',
         'comment',
         'markdown',
         'markdown_inline',
-        'json',
-        'dockerfile',
-        'yaml',
-        'terraform',
-        'hcl',
-        'sql',
-        'java',
       },
 
       sync_install = false, -- Install parsers synchronously
@@ -116,11 +108,9 @@ return {
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'folke/which-key.nvim' },
     event = 'VeryLazy',
     config = function()
-      local treesitter_context = require 'treesitter-context'
-
       UTIL.register_keys {
         ['glc'] = {
-          function() treesitter_context.go_to_context(vim.v.count1) end,
+          function() require('treesitter-context').go_to_context(vim.v.count1) end,
           'Go to surrounding context',
         },
       }
@@ -131,14 +121,14 @@ return {
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'folke/which-key.nvim' },
     event = 'VeryLazy',
     config = function()
-      UTIL.register_keys({
-        p = {
+      UTIL.register_keys {
+        ['<leader>p'] = {
           name = 'ts-playground',
           p = { ':TSPlaygroundToggle<cr>', 'Toggle playground' },
           h = { ':TSHighlightCapturesUnderCursor<cr>', 'Highlight captures under cursor' },
           n = { ':TSNodeUnderCursor<cr>', 'Highlight node under cursor' },
         },
-      }, { prefix = '<leader>' })
+      }
     end,
   },
 }

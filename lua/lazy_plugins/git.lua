@@ -6,22 +6,24 @@ return {
     config = function()
       local telescope_builtin = require 'telescope.builtin'
 
-      UTIL.register_keys({
-        name = 'git',
-        b = { telescope_builtin.git_branches, 'Branches' },
-        c = { telescope_builtin.git_commits, 'All commits' },
-        d = { ':Gvdiff<cr>', 'Diff' },
-        f = { ':Git fetch<SPAce>', 'Fetch' },
-        g = { ':Git<cr>', 'Fugitive' },
-        h = { ':0Gclog<cr>', 'File history' },
-        l = { ':Git log<cr>', 'Changes log' },
-        o = { ':Git checkout<space>', 'Checkout' },
-        p = { ':Git push<space>', 'Push' },
-        u = { ':Git pull<space>', 'Pull' },
-        i = { telescope_builtin.git_status, 'Commit info (status)' },
-        s = { telescope_builtin.git_stash, 'Stash' },
-        ['?'] = { ':Git help<cr>', 'Help (?)' },
-      }, { prefix = '<leader>g' })
+      UTIL.register_keys {
+        ['<leader>g'] = {
+          name = 'git',
+          b = { telescope_builtin.git_branches, 'Branches' },
+          c = { telescope_builtin.git_commits, 'All commits' },
+          d = { ':Gvdiff<cr>', 'Diff' },
+          f = { ':Git fetch<SPAce>', 'Fetch' },
+          g = { ':Git<cr>', 'Fugitive' },
+          h = { ':0Gclog<cr>', 'File history' },
+          l = { ':Git log<cr>', 'Changes log' },
+          o = { ':Git checkout<space>', 'Checkout' },
+          p = { ':Git push<space>', 'Push' },
+          u = { ':Git pull<space>', 'Pull' },
+          i = { telescope_builtin.git_status, 'Commit info (status)' },
+          s = { telescope_builtin.git_stash, 'Stash' },
+          ['?'] = { ':Git help<cr>', 'Help (?)' },
+        },
+      }
 
       UTIL.register_keys { yog = { ':Git blame<cr>', 'git blame' } }
     end,
@@ -50,17 +52,19 @@ return {
         }
 
         -- Hunk actions
-        UTIL.register_keys({
-          name = 'hunks',
-          s = { git_signs.stage_hunk, 'Stage hunk' },
-          u = { git_signs.undo_stage_hunk, 'Undo stage hunk' },
-          h = { git_signs.reset_hunk, 'Reset hunk' },
-          b = { git_signs.reset_buffer, 'Reset buffer' },
-          p = { git_signs.preview_hunk, 'Preview hunk' },
-          i = { function() git_signs.blame_line { full = true } end, 'Git info for current line' },
-          d = { git_signs.diffthis, 'Diff' },
-          r = { function() git_signs.diffthis(vim.fn.input 'Ref > ') end, 'Diff against ref' },
-        }, { prefix = '<leader>h' })
+        UTIL.register_keys {
+          ['<leader>h'] = {
+            name = 'hunks',
+            s = { git_signs.stage_hunk, 'Stage hunk' },
+            u = { git_signs.undo_stage_hunk, 'Undo stage hunk' },
+            h = { git_signs.reset_hunk, 'Reset hunk' },
+            b = { git_signs.reset_buffer, 'Reset buffer' },
+            p = { git_signs.preview_hunk, 'Preview hunk' },
+            i = { function() git_signs.blame_line { full = true } end, 'Git info for current line' },
+            d = { git_signs.diffthis, 'Diff' },
+            r = { function() git_signs.diffthis(vim.fn.input 'Ref > ') end, 'Diff against ref' },
+          },
+        }
 
         -- Toggle removed hunks
         UTIL.register_keys { yod = { git_signs.toggle_deleted, 'Deleted hunks' } }

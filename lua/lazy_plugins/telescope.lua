@@ -17,17 +17,19 @@ return {
       require('telescope').setup(opts)
       local telescope_builtin = require 'telescope.builtin'
 
-      UTIL.register_keys({
-        name = 'find',
-        f = {
-          function() telescope_builtin.find_files { find_command = { 'rg', '--files', '--hidden', '-g', '!.git' } } end,
-          'All files',
+      UTIL.register_keys {
+        ['<leader>f'] = {
+          name = 'find',
+          f = {
+            function() telescope_builtin.find_files { find_command = { 'rg', '--files', '--hidden', '-g', '!.git' } } end,
+            'All files',
+          },
+          g = { telescope_builtin.live_grep, 'grep' },
+          s = { telescope_builtin.spell_suggest, 'View spelling suggestion & apply' },
+          h = { telescope_builtin.help_tags, 'Search documentation' },
+          r = { telescope_builtin.resume, 'Resume previous search' },
         },
-        g = { telescope_builtin.live_grep, 'grep' },
-        s = { telescope_builtin.spell_suggest, 'View spelling suggestion & apply' },
-        h = { telescope_builtin.help_tags, 'Search documentation' },
-        r = { telescope_builtin.resume, 'Resume previous search' },
-      }, { prefix = '<leader>f' })
+      }
     end,
   },
   {

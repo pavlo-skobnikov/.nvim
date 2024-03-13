@@ -7,7 +7,7 @@ return {
         ['g?'] = 'actions.show_help',
         ['<cr>'] = 'actions.select',
         ['<c-v>'] = 'actions.select_vsplit',
-        ['<c-s>'] = 'actions.select_split',
+        ['<c-x>'] = 'actions.select_split',
         ['<c-t>'] = 'actions.select_tab',
         ['<c-p>'] = 'actions.preview',
         ['<c-c>'] = 'actions.close',
