@@ -3,7 +3,12 @@ return {
     'tpope/vim-fugitive', -- Git wrapper
     dependencies = { 'nvim-telescope/telescope.nvim', 'folke/which-key.nvim' },
     event = 'VeryLazy',
-    config = function() U.register_keys { ['<leader>g'] = { ':Git<cr>', 'Git' } } end,
+    config = function()
+      U.register_keys {
+        ['<leader>g'] = { ':Git<cr>', 'Git' },
+        yog = { ':Git blame<cr>', 'Git blame' },
+      }
+    end,
   },
   {
     'lewis6991/gitsigns.nvim', -- Git gutter & hunks
