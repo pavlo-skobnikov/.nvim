@@ -23,7 +23,7 @@ require 'autocommands'
 require 'options'
 
 -- Shared utility functions
-UTIL = require 'utilities'
+U = require 'utilities'
 
 -- Load plugin configurations
 require('lazy').setup 'lazy_plugins' -- Loads each lua/lazy_plugins/*

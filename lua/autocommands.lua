@@ -28,7 +28,7 @@ autocmd('BufEnter', {
 autocmd('FileType', {
   group = augroup('SetTabTo2Spaces', { clear = true }),
   pattern = { 'scala', 'sbt', 'json', 'lua', 'gleam' },
-  callback = function() UTIL.set_tab_spaces(2) end,
+  callback = function() U.set_tab_spaces(2) end,
   desc = 'Set Tab to 2 spaces for specific filetypes',
 })
 

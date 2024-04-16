@@ -63,12 +63,11 @@ local function setup_debugger(bufnr)
   jdtls.setup_dap { hotcodereplace = 'auto' }
   require('jdtls.dap').setup_dap_main_class_configs()
 
-  UTIL.register_keys({
-    name = 'major',
+  U.register_keys({
     c = { jdtls.test_class, 'Test class' },
     n = { jdtls.test_nearest_method, 'Test nearest' },
     a = { attach_to_debugger, 'Attach to debugger' },
-  }, { prefix = '<leader>m', buffer = bufnr })
+  }, { prefix = '<localleader>', buffer = bufnr })
 end
 
 -- Calls code lens and sets up an autocmd to refresh it after saving

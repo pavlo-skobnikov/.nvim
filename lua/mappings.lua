@@ -7,7 +7,7 @@
 --   command_mode = 'c',
 --   operator_pending_mode = 'o'
 
-UTIL.register_keys {
+U.register_keys {
   ['<esc>'] = {
     function()
       vim.cmd ':noh'
@@ -24,22 +24,13 @@ UTIL.register_keys {
   ['c<space>'] = { 'f<space>diwi<space>', 'Trim whitespace' },
 
   ['g*'] = { function() vim.fn.matchadd('Search', vim.fn.expand '<cword>') end, 'Highlight word under cursor' },
-
-  ['<leader>C'] = {
-    name = 'configure',
-    s = { function() UTIL.set_tab_spaces(tonumber(vim.fn.input 'Spaces count > ')) end, 'Set tab spaces' },
-  },
 }
 
-for i = 1, 9 do
-  UTIL.register_keys { ['<leader>' .. i] = { i .. '<c-w>w', 'Go to window ' .. i } }
-end
-
-UTIL.register_keys({
+U.register_keys({
   d = { '"_d', 'Delete without copying' },
 }, { prefix = '<leader>', mode = 'v' })
 
-UTIL.register_keys({
+U.register_keys({
   p = { '"_dP', 'Paste without copying' },
 }, { prefix = '<leader>', mode = { 'v', 'x' } })
 
@@ -57,29 +48,13 @@ autocmd('LspAttach', {
 
     local opts = { buffer = e.buf }
 
-    UTIL.register_keys({
+    U.register_keys({
       ['<leader>r'] = {
         name = 'refactor',
-        a = {
-          function()
-            -- To avoid the issue when the buffer is out of sync with the system file, which is
-            -- an issue for some LSP's
-            vim.cmd 'silent! w'
-            buffer.code_action()
-          end,
-          'Code action & save',
-        },
+        a = { buffer.code_action, 'Code action & save' },
         l = { codelens.run, 'Run code lens' },
 
-        n = {
-          function()
-            -- To avoid the issue when the buffer is out of sync with the system file, which is
-            -- an issue for some LSP's
-            vim.cmd 'silent! w'
-            buffer.rename()
-          end,
-          'Rename & save',
-        },
+        n = { buffer.rename, 'Rename' },
         h = { buffer.document_highlight, 'Highlight symbol' },
 
         f = { diagnostic.open_float, 'Open float' },
@@ -103,7 +78,7 @@ autocmd('LspAttach', {
       K = { buffer.hover, 'Hover' },
     }, opts)
 
-    UTIL.register_keys({
+    U.register_keys({
       ['<c-s-k>'] = { buffer.signature_help, 'Signature help' },
     }, { mode = { 'n', 'v', 'i' } })
   end,

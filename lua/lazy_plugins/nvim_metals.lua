@@ -29,9 +29,8 @@ return {
       metals.setup_dap()
 
       -- Set Metals-specific keymaps
-      UTIL.register_keys {
-        ['<leader>m'] = {
-          name = 'major',
+      U.register_keys {
+        ['<localleader>'] = {
           w = { function() metals.hover_worksheet() end, 'Open worksheet' },
         },
       }

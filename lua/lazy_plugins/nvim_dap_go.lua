@@ -7,9 +7,8 @@ return {
 
     dap_go.setup()
 
-    UTIL.register_keys {
-      ['<leader>m'] = {
-        name = 'major',
+    U.register_keys {
+      ['<localleader>'] = {
         n = { dap_go.debug_test, 'Test nearest' },
         l = { dap_go.debug_last_test, 'Test last' },
       },

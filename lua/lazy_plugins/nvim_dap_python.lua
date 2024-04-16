@@ -9,8 +9,8 @@ return {
 
     dap_py.setup(debugpy_path)
 
-    UTIL.register_keys {
-      ['<leader>m'] = {
+    U.register_keys {
+      ['<localleader>'] = {
         name = 'major',
         c = { dap_py.test_class, 'Test class' },
         n = { dap_py.test_method, 'Test nearest' },

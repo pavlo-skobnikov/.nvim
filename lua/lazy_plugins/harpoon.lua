@@ -7,20 +7,20 @@ return {
 
     harpoon:setup()
 
-    UTIL.register_keys {
+    U.register_keys {
       ['<leader>'] = {
         a = { function() harpoon:list():append() end, 'Add to Harpoon' },
-        l = {
+        H = {
           function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,
-          'Toggle Harpoon menu',
+          'Harpoon',
         },
       },
-      ['[h'] = { function() harpoon:list():prev() end, 'Previous ' },
-      [']h'] = { function() harpoon:list():next() end, 'Harpoon next' },
+      ['[h'] = { function() harpoon:list():prev() end, 'Previous harpoon mark' },
+      [']h'] = { function() harpoon:list():next() end, 'Next harpoon mark' },
     }
 
     for i = 1, 9 do
-      UTIL.register_keys {
+      U.register_keys {
         ['g' .. i] = {
           function() harpoon:list():select(i) end,
           'Go to Harpoon mark ' .. i,

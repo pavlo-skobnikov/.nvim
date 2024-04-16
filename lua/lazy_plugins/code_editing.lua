@@ -6,7 +6,7 @@ return {
     'tpope/vim-surround', -- Actions on surrounding characters (e.g. brackets & quotes)
     event = 'InsertEnter',
     config = function()
-      UTIL.register_keys {
+      U.register_keys {
         cs = { name = 'surround' },
         ys = { name = 'surround' },
         ds = { name = 'surround' },

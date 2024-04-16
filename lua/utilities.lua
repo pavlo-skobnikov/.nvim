@@ -1,5 +1,4 @@
 -- This file contains functions to be used in configuration files.
-
 local MODULE = {}
 
 -- Register a keymap with the which-key plugin
@@ -19,5 +18,12 @@ function MODULE.set_tab_spaces(spaces_count)
     trail = '·',
   }
 end
+
+-- Create a user command to set the tab spaces
+vim.api.nvim_create_user_command(
+  'SetTabSpaces',
+  function(opts) MODULE.set_tab_spaces(tonumber(opts.fargs[1])) end,
+  { nargs = 1 }
+)
 
 return MODULE

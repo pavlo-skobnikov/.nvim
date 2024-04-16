@@ -40,8 +40,8 @@ return {
           menu = {
             buffer = '📝',
             nvim_lsp = '💡',
-            path = '⛰️',
-            luasnip = '✂️',
+            path = '📂',
+            luasnip = '🔮',
           },
         },
       },
@@ -54,20 +54,20 @@ return {
       },
       -- Key mappings for completion
       mapping = {
-        ['<C-n>'] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
-        ['<C-p>'] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
-        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-        ['<C-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-e>'] = cmp.mapping.abort(),
-        ['<C-y>'] = cmp.mapping(
+        ['<c-n>'] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
+        ['<c-p>'] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Insert },
+        ['<c-d>'] = cmp.mapping.scroll_docs(-4),
+        ['<c-f>'] = cmp.mapping.scroll_docs(4),
+        ['<c-e>'] = cmp.mapping.abort(),
+        ['<c-y>'] = cmp.mapping(
           cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Insert, select = true },
           { 'i', 'c' }
         ),
-        ['<C-S-y>'] = cmp.mapping(
+        ['<tab>'] = cmp.mapping(
           cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = false },
           { 'i', 'c' }
         ),
-        ['<C-Space>'] = cmp.mapping {
+        ['<c-space>'] = cmp.mapping {
           i = cmp.mapping.complete(),
           c = function()
             if cmp.visible() then
@@ -77,15 +77,14 @@ return {
             end
           end,
         },
-        ['<Tab>'] = cmp.config.disable,
       },
     }
 
     -- Snippet traversal when typing
-    UTIL.register_keys({
-      ['<C-n>'] = { function() lua_snip.jump(1) end, 'Next Snippet Choice' },
-      ['<C-p>'] = { function() lua_snip.jump(-1) end, 'Previous Snippet Choice' },
-      ['<C-e>'] = {
+    U.register_keys({
+      ['<c-n>'] = { function() lua_snip.jump(1) end, 'Next Snippet Choice' },
+      ['<c-p>'] = { function() lua_snip.jump(-1) end, 'Previous Snippet Choice' },
+      ['<c-e>'] = {
         function()
           if lua_snip.choice_active() then lua_snip.change_choice(1) end
         end,

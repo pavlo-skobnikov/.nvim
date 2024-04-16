@@ -4,8 +4,8 @@ return {
   config = function()
     require('gp').setup()
 
-    -- VISUAL mode mappings
-    UTIL.register_keys({
+    -- VISUAL
+    U.register_keys({
       ['<C-g>'] = {
         c = { ":<C-u>'<,'>GpChatNew<cr>", 'Visual Chat New' },
         p = { ":<C-u>'<,'>GpChatPaste<cr>", 'Visual Chat Paste' },
@@ -33,18 +33,10 @@ return {
         s = { '<cmd>GpStop<cr>', 'GpStop' },
         x = { ":<C-u>'<,'>GpContext<cr>", 'Visual GpContext' },
       },
-    }, {
-      mode = 'v',
-      prefix = '',
-      buffer = nil,
-      silent = true,
-      noremap = true,
-      nowait = true,
-    })
+    }, { mode = 'v', prefix = '', buffer = nil, silent = true, noremap = true, nowait = true })
 
-    -- NORMAL mode mappings
-    UTIL.register_keys({
-      -- ...
+    -- NORMAL & INSERT
+    U.register_keys({
       ['<C-g>'] = {
         c = { '<cmd>GpChatNew<cr>', 'New Chat' },
         t = { '<cmd>GpChatToggle<cr>', 'Toggle Chat' },
@@ -71,50 +63,6 @@ return {
         s = { '<cmd>GpStop<cr>', 'GpStop' },
         x = { '<cmd>GpContext<cr>', 'Toggle GpContext' },
       },
-    }, {
-      mode = 'n',
-      prefix = '',
-      buffer = nil,
-      silent = true,
-      noremap = true,
-      nowait = true,
-    })
-
-    -- INSERT mode mappings
-    UTIL.register_keys({
-      ['<C-g>'] = {
-        c = { '<cmd>GpChatNew<cr>', 'New Chat' },
-        t = { '<cmd>GpChatToggle<cr>', 'Toggle Chat' },
-        f = { '<cmd>GpChatFinder<cr>', 'Chat Finder' },
-
-        ['<C-x>'] = { '<cmd>GpChatNew split<cr>', 'New Chat split' },
-        ['<C-v>'] = { '<cmd>GpChatNew vsplit<cr>', 'New Chat vsplit' },
-        ['<C-t>'] = { '<cmd>GpChatNew tabnew<cr>', 'New Chat tabnew' },
-
-        r = { '<cmd>GpRewrite<cr>', 'Inline Rewrite' },
-        a = { '<cmd>GpAppend<cr>', 'Append (after)' },
-        b = { '<cmd>GpPrepend<cr>', 'Prepend (before)' },
-
-        g = {
-          name = 'generate into new ..',
-          p = { '<cmd>GpPopup<cr>', 'Popup' },
-          e = { '<cmd>GpEnew<cr>', 'GpEnew' },
-          n = { '<cmd>GpNew<cr>', 'GpNew' },
-          v = { '<cmd>GpVnew<cr>', 'GpVnew' },
-          t = { '<cmd>GpTabnew<cr>', 'GpTabnew' },
-        },
-
-        x = { '<cmd>GpContext<cr>', 'Toggle GpContext' },
-        s = { '<cmd>GpStop<cr>', 'GpStop' },
-        n = { '<cmd>GpNextAgent<cr>', 'Next Agent' },
-      },
-    }, {
-      mode = 'i',
-      prefix = '',
-      buffer = nil,
-      silent = true,
-      noremap = true,
-      nowait = true,
-    })
+    }, { mode = { 'n', 'i' }, prefix = '', buffer = nil, silent = true, noremap = true, nowait = true })
   end,
 }

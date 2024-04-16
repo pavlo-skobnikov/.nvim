@@ -3,6 +3,7 @@ return {
   {
     'mfussenegger/nvim-dap', -- Debug Adapter Protocol client
     dependencies = {
+      'nvim-neotest/nvim-nio',
       'rcarriga/nvim-dap-ui', -- UI for DAP
       'theHamsta/nvim-dap-virtual-text', -- Virtual Text for DAP
       'nvim-telescope/telescope-dap.nvim', -- UI picker extension for DAP
@@ -31,7 +32,7 @@ return {
       local dap_telescope = require('telescope').extensions.dap
 
       -- Setup mappings
-      UTIL.register_keys({
+      U.register_keys({
         name = 'dap',
         d = { dap_ui.toggle, 'DAP UI' }, -- General mappings
         o = { dap.repl.open, 'Open REPL' },
@@ -68,7 +69,7 @@ return {
         },
       }, { prefix = '<leader>d' })
 
-      UTIL.register_keys({
+      U.register_keys({
         name = 'widgets',
         h = { dap_widgets.hover, 'Hover' },
         p = { dap_widgets.preview, 'Preview' },

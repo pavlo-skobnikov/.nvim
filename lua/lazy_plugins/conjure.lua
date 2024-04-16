@@ -7,7 +7,7 @@ return {
   },
   ft = { 'clojure' },
   config = function()
-    UTIL.register_keys {
+    U.register_keys {
       ['<localleader>'] = {
         c = 'connect',
         e = { name = 'evaluate', c = 'comment' },

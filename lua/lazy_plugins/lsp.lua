@@ -16,10 +16,10 @@ return {
       'lua_ls', -- Lua
       'pylsp', -- Python
       'gopls', -- Go
-      'gleam', -- Gleam
       'jdtls', -- Java
       'kotlin_language_server', -- Kotlin
       'clojure_lsp', -- Clojure
+      -- Scala & Metals are not managed by Mason :)
       'tsserver', -- TypeScript
       'bashls', -- Bash
       'marksman', -- Markdown

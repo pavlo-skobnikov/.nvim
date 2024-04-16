@@ -4,7 +4,7 @@ return {
     dependencies = { 'folke/which-key.nvim' },
     event = 'VeryLazy',
     config = function()
-      UTIL.register_keys({
+      U.register_keys({
         ['<C-h>'] = { '<CMD>TmuxNavigateLeft<CR>', 'Move a split left' },
         ['<C-j>'] = { '<CMD>TmuxNavigateDown<CR>', 'Move a split down' },
         ['<C-k>'] = { '<CMD>TmuxNavigateUp<CR>', 'Move a split up' },

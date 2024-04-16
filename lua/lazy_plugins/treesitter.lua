@@ -63,12 +63,10 @@ return {
         swap = {
           enable = true,
           swap_next = {
-            ['<leader>sna'] = { query = '@parameter.inner', desc = 'Swap argument forwards' },
-            ['<leader>snf'] = { query = '@function.outer', desc = 'Swap function forwards' },
+            [']S'] = { query = '@parameter.inner', desc = 'Swap argument forwards' },
           },
           swap_previous = {
-            ['<leader>sna'] = { query = '@parameter.inner', desc = 'Swap argument backwards' },
-            ['<leader>snf'] = { query = '@function.outer', desc = 'Swap function backwards' },
+            ['[S'] = { query = '@parameter.inner', desc = 'Swap argument backwards' },
           },
         },
         move = {
@@ -88,12 +86,12 @@ return {
     config = function(_, opts)
       require('nvim-treesitter.configs').setup(opts)
 
-      UTIL.register_keys { ['<leader>s'] = { name = 'swap' } }
-      UTIL.register_keys({ ['['] = 'backwards', [']'] = 'forwards' }, { mode = { 'o', 'x' } })
+      U.register_keys { ['<leader>s'] = { name = 'swap' } }
+      U.register_keys({ ['['] = 'backwards', [']'] = 'forwards' }, { mode = { 'o', 'x' } })
 
       local repeat_move = require 'nvim-treesitter.textobjects.repeatable_move'
 
-      UTIL.register_keys({
+      U.register_keys({
         [';'] = { repeat_move.repeat_last_move_next, 'Repeat last move forwards' },
         [','] = { repeat_move.repeat_last_move_previous, 'Repeat last move backwards' },
         ['f'] = { repeat_move.builtin_f, 'Search char forwards' },
@@ -108,7 +106,7 @@ return {
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'folke/which-key.nvim' },
     event = 'VeryLazy',
     config = function()
-      UTIL.register_keys {
+      U.register_keys {
         ['glc'] = {
           function() require('treesitter-context').go_to_context(vim.v.count1) end,
           'Go to surrounding context',
@@ -120,15 +118,5 @@ return {
     'nvim-treesitter/playground', -- Treesitter query playground
     dependencies = { 'nvim-treesitter/nvim-treesitter', 'folke/which-key.nvim' },
     event = 'VeryLazy',
-    config = function()
-      UTIL.register_keys {
-        ['<leader>p'] = {
-          name = 'ts-playground',
-          p = { ':TSPlaygroundToggle<cr>', 'Toggle playground' },
-          h = { ':TSHighlightCapturesUnderCursor<cr>', 'Highlight captures under cursor' },
-          n = { ':TSNodeUnderCursor<cr>', 'Highlight node under cursor' },
-        },
-      }
-    end,
   },
 }
