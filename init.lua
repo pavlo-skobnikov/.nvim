@@ -26,7 +26,11 @@ require 'options'
 U = require 'utilities'
 
 -- Load plugin configurations
-require('lazy').setup 'lazy_plugins' -- Loads each lua/lazy_plugins/*
+require('lazy').setup {
+  spec = 'lazy_plugins',
+  change_detection = { notify = false },
+}
+-- Loads each lua/lazy_plugins/*
 
 -- Load extra key mappings
 require 'mappings'
