@@ -1,4 +1,4 @@
-local opt_options = {
+local options = {
   backup = false, -- Creates a backup file
   clipboard = 'unnamedplus', -- Allows neovim to access the system clipboard
   cmdheight = 1, -- More space in the neovim command line for displaying messages
@@ -8,7 +8,7 @@ local opt_options = {
     'noselect',
     'noinsert',
   }, -- A comma separated list of options for Insert mode completion
-  conceallevel = 0, -- So that `` is visible in markdown files
+  conceallevel = 1, -- Conceal stuff ;)
   colorcolumn = '100', -- Visual marker for column width
   fileencoding = 'utf-8', -- The encoding written to a file
   hlsearch = true, -- Highlight all matches on previous search pattern
@@ -56,6 +56,7 @@ local opt_options = {
   shortmess = 'filnxtToOFc', -- Flags for short messages
 }
 
-for k, v in pairs(opt_options) do
+-- Set vim options
+for k, v in pairs(options) do
   vim.opt[k] = v
 end
