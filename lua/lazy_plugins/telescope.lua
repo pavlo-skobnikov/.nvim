@@ -5,40 +5,33 @@ return {
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons',
-      'folke/which-key.nvim',
       'nvim-telescope/telescope-ui-select.nvim',
       'nvim-telescope/telescope-fzy-native.nvim',
     },
     event = 'VeryLazy',
-    opts = {
-      defaults = {
-        dynamic_preview_title = true,
-        path_display = { 'tail' },
-        layout_strategy = 'vertical',
-        layout_config = { vertical = { mirror = false } },
-        pickers = { lsp_incoming_calls = { path_display = 'tail' } },
-      },
-    },
-    config = function(_, opts)
-      require('telescope').setup(opts)
+    config = function()
+      require('telescope').setup {
+        defaults = {
+          dynamic_preview_title = true,
+          path_display = { 'tail' },
+          layout_strategy = 'vertical',
+          layout_config = { vertical = { mirror = false } },
+          pickers = { lsp_incoming_calls = { path_display = 'tail' } },
+        },
+      }
 
       local telescope_builtin = require 'telescope.builtin'
 
-      U.register_keys {
-        ['<leader>'] = {
-          t = { '<cmd>Telescope<cr>', 'Telescope' },
-          f = {
-            name = 'find',
-            f = {
-              function() telescope_builtin.find_files { find_command = { 'rg', '--files', '--hidden', '-g', '!.git' } } end,
-              'All files',
-            },
-            g = { telescope_builtin.live_grep, 'grep' },
-            h = { telescope_builtin.help_tags, 'Search documentation' },
-            r = { telescope_builtin.resume, 'Resume previous search' },
-          },
-        },
-      }
+      vim.keymap.set('n', '<leader>t', '<cmd>Telescope<cr>', { desc = 'Telescope' })
+      vim.keymap.set(
+        'n',
+        '<leader>ff',
+        function() telescope_builtin.find_files { find_command = { 'rg', '--files', '--hidden', '-g', '!.git' } } end,
+        { desc = 'All files' }
+      )
+      vim.keymap.set('n', '<leader>fg', telescope_builtin.live_grep, { desc = 'Grep' })
+      vim.keymap.set('n', '<leader>fh', telescope_builtin.help_tags, { desc = 'Search documentation' })
+      vim.keymap.set('n', '<leader>fr', telescope_builtin.resume, { desc = 'Resume previous search' })
     end,
   },
   {

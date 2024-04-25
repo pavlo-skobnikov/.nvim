@@ -3,9 +3,8 @@ return {
   lazy = false,
   priority = 1000,
   main = 'catppuccin',
-  opts = { flavour = 'frappe' },
-  config = function(_, opts)
-    require('catppuccin').setup(opts)
+  config = function()
+    require('catppuccin').setup { flavour = 'frappe' }
 
     vim.cmd [[ colorscheme catppuccin ]]
   end,

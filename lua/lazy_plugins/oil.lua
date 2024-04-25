@@ -27,6 +27,6 @@ return {
       },
     }
 
-    U.register_keys { ['-'] = { '<cmd>Oil<cr>', 'File Explorer' } }
+    vim.keymap.set('n', '-', '<cmd>Oil<cr>', { desc = 'File Explorer' })
   end,
 }

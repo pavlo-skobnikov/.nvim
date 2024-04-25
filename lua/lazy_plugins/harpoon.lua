@@ -7,25 +7,14 @@ return {
 
     harpoon:setup()
 
-    U.register_keys {
-      ['<leader>'] = {
-        a = { function() harpoon:list():append() end, 'Add to Harpoon' },
-        H = {
-          function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,
-          'Harpoon',
-        },
-      },
-      ['[h'] = { function() harpoon:list():prev() end, 'Previous harpoon mark' },
-      [']h'] = { function() harpoon:list():next() end, 'Next harpoon mark' },
-    }
+    vim.keymap.set('n', '<leader>a', function() harpoon:list():append() end, { desc = 'Add to Harpoon' })
+    vim.keymap.set('n', '<leader>H', function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = 'Harpoon' })
+
+    vim.keymap.set('n', '[h', function() harpoon:list():prev() end, { desc = 'Previous harpoon mark' })
+    vim.keymap.set('n', ']h', function() harpoon:list():next() end, { desc = 'Next harpoon mark' })
 
     for i = 1, 9 do
-      U.register_keys {
-        ['g' .. i] = {
-          function() harpoon:list():select(i) end,
-          'Go to Harpoon mark ' .. i,
-        },
-      }
+      vim.keymap.set('n', 'g' .. i, function() harpoon:list():select(i) end, { desc = 'Go to Harpoon mark ' .. i })
     end
   end,
 }

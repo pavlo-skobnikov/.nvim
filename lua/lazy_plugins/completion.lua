@@ -3,8 +3,7 @@ return {
   dependencies = {
     'L3MON4D3/LuaSnip', -- Snippet engine for NeoVim
     'onsails/lspkind-nvim', -- VSCode-style completion options kinds
-    'windwp/nvim-autopairs',
-    'folke/which-key.nvim',
+    'windwp/nvim-autopairs', -- Auto-pairing of brackets
     -- SOURCES
     'saadparwaiz1/cmp_luasnip', -- Adds a `luasnip` completion source for `cmp`
     'rafamadriz/friendly-snippets', -- A bunch of snippets to use
@@ -81,16 +80,21 @@ return {
     }
 
     -- Snippet traversal when typing
-    U.register_keys({
-      ['<c-n>'] = { function() lua_snip.jump(1) end, 'Next Snippet Choice' },
-      ['<c-p>'] = { function() lua_snip.jump(-1) end, 'Previous Snippet Choice' },
-      ['<c-e>'] = {
-        function()
-          if lua_snip.choice_active() then lua_snip.change_choice(1) end
-        end,
-        'Next Snippet Choice',
-      },
-    }, { mode = { 'i', 's' }, silent = true })
+    vim.keymap.set(
+      { 'i', 's' },
+      '<c-n>',
+      function() lua_snip.jump(1) end,
+      { silent = true, desc = 'Next Snippet Choice' }
+    )
+    vim.keymap.set(
+      { 'i', 's' },
+      '<c-p>',
+      function() lua_snip.jump(-1) end,
+      { silent = true, desc = 'Previous Snippet Choice' }
+    )
+    vim.keymap.set({ 'i', 's' }, '<c-e>', function()
+      if lua_snip.choice_active() then lua_snip.change_choice(1) end
+    end, { silent = true, desc = 'Next Snippet Choice' })
 
     -- Context-aware completion sources setup
     cmp.setup.cmdline({ '/', '?' }, { mapping = cmp.mapping.preset.cmdline(), sources = { { name = 'buffer' } } })

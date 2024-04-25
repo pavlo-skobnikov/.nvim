@@ -3,21 +3,6 @@ return {
   dependencies = {
     'tpope/vim-dispatch', -- Asynchronous execution for Neovim
     'clojure-vim/vim-jack-in', -- Auto-setup Boot, Clj & Leiningen sessions from the command mode
-    'folke/which-key.nvim',
   },
   ft = { 'clojure' },
-  config = function()
-    U.register_keys {
-      ['<localleader>'] = {
-        c = 'connect',
-        e = { name = 'evaluate', c = 'comment' },
-        g = 'get',
-        l = 'log',
-        r = 'run',
-        s = 'sessions',
-        v = 'variables',
-        t = 'test',
-      },
-    }
-  end,
 }

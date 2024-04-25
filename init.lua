@@ -19,18 +19,12 @@ end
 vim.opt.runtimepath:prepend(lazypath)
 
 -- Load base nvim configurations
-require 'autocommands'
+require 'commands'
 require 'options'
-
--- Shared utility functions
-U = require 'utilities'
+require 'mappings'
 
 -- Load plugin configurations
 require('lazy').setup {
   spec = 'lazy_plugins',
   change_detection = { notify = false },
 }
--- Loads each lua/lazy_plugins/*
-
--- Load extra key mappings
-require 'mappings'
