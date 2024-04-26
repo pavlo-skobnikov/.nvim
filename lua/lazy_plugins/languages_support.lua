@@ -1,56 +1,15 @@
 return {
   {
-    'williamboman/mason-lspconfig.nvim', -- Bridges mason.nvim with the lspconfig plugin
+    'ray-x/go.nvim', -- Go support
     dependencies = {
-      { 'williamboman/mason.nvim', build = ':MasonUpdate' }, -- Package manager for Neovim
-      'neovim/nvim-lspconfig', -- Configs for the Nvim LSP client (:help lsp)
-      'nvim-telescope/telescope.nvim',
-      'nvim-treesitter/nvim-treesitter-textobjects',
-      'hrsh7th/cmp-nvim-lsp',
+      'neovim/nvim-lspconfig',
+      'nvim-treesitter/nvim-treesitter',
+      'ray-x/guihua.lua', -- GUI library
     },
-    event = 'VeryLazy',
-    config = function()
-      -- Setup Mason for package management
-      require('mason').setup()
-
-      local mason_config = require 'mason-lspconfig.init'
-      local lsp_config = require 'lspconfig'
-      local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-      -- Setup Mason LSP config
-      mason_config.setup {
-        ensure_installed = {
-          'clangd', -- C
-          'zls', -- Zig
-          'rust_analyzer', -- Rust
-          'lua_ls', -- Lua
-          'pylsp', -- Python
-          'gopls', -- Go
-          'jdtls', -- Java
-          'kotlin_language_server', -- Kotlin
-          'clojure_lsp', -- Clojure
-          -- Scala & Metals are not managed by Mason :)
-          -- Gleam isn't managed by Mason either!
-          'tsserver', -- TypeScript
-          'bashls', -- Bash
-          'marksman', -- Markdown
-          'dockerls', -- Dockerfile
-          'sqlls', -- SQL
-          'yamlls', -- YAML
-          'jsonls', -- JSON
-        },
-        handlers = {
-          -- Default handler for all LSP servers
-          function(serverName)
-            if vim.tbl_contains({ 'jdtls' }, serverName) then return end
-
-            lsp_config[serverName].setup { capabilities = capabilities }
-          end,
-          -- Java is handled by nvim-jdtls
-          ['jdtls'] = function() end,
-        },
-      }
-    end,
+    event = { 'CmdlineEnter' },
+    ft = { 'go', 'gomod' },
+    build = ':lua require("go.install").update_all_sync()', -- if you need to install/update all binaries
+    config = function() require('go').setup() end,
   },
   {
     'nvim-java/nvim-java', -- Java support
@@ -79,7 +38,7 @@ return {
       require('lspconfig').jdtls.setup {}
 
       vim.keymap.set('n', '<leader>mr', java.runner.built_in.run_app, { desc = 'Run' })
-      vim.keymap.set('n', '<leader>mR', function ()
+      vim.keymap.set('n', '<leader>mR', function()
         local input = vim.fn.input 'App arguments: '
 
         -- Convert the input string into a table of arguments
@@ -90,6 +49,7 @@ return {
 
         java.runner.built_in.run_app(arguments)
       end, { desc = 'Run with arguments' })
+
       vim.keymap.set('n', '<leader>ms', java.runner.built_in.stop_app, { desc = 'Stop' })
       vim.keymap.set('n', '<leader>ml', java.runner.built_in.toggle_logs, { desc = 'Toggle logs' })
       vim.keymap.set('n', '<leader>md', java.dap.config_dap, { desc = 'Configure DAP' })
@@ -99,6 +59,22 @@ return {
       vim.keymap.set('n', '<leader>mM', java.test.debug_current_method, { desc = 'Debug method' })
       vim.keymap.set('n', '<leader>mr', java.test.view_last_report, { desc = 'View last report' })
       vim.keymap.set('n', '<leader>mu', java.profile.ui, { desc = 'Profile UI' })
+    end,
+  },
+  {
+    'mfussenegger/nvim-dap-python', -- Python debugging support
+    dependencies = { 'mfussenegger/nvim-dap' },
+    ft = { 'python' },
+    config = function()
+      local dap_py = require 'dap-python'
+
+      local debugpy_path = require('mason-registry').get_package('debugpy'):get_install_path() .. '/venv/bin/python'
+
+      dap_py.setup(debugpy_path)
+
+      vim.keymap.set('n', '<leader>mc', dap_py.test_class, { desc = 'Test class' })
+      vim.keymap.set('n', '<leader>mn', dap_py.test_method, { desc = 'Test nearest method' })
+      vim.keymap.set({ 'v', 'x' }, '<leader>ms', dap_py.debug_selection, { desc = 'Test selection' })
     end,
   },
   {

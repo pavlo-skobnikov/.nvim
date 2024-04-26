@@ -10,7 +10,7 @@ return {
   },
   {
     'lewis6991/gitsigns.nvim', -- Git gutter & hunks
-    dependencies = { 'nvim-lua/plenary.nvim', 'nvim-treesitter/nvim-treesitter-textobjects' },
+    dependencies = { 'nvim-lua/plenary.nvim' },
     event = 'VeryLazy',
     config = function()
       local function on_attach()

@@ -14,7 +14,7 @@ return {
         rust = { require('formatter.filetypes.rust')['rustfmt'] },
         lua = { require('formatter.filetypes.lua')['stylua'] },
         python = { require('formatter.filetypes.python')['black'] },
-        go = { require('formatter.filetypes.go')['goimports'] },
+        go = { require('go.format').goimports },
         gleam = { function() pcall(vim.lsp.buf.format) end },
         java = {
           function() return { exe = 'google-java-format', args = { '-a', get_buffer_fname() }, stdin = true } end,

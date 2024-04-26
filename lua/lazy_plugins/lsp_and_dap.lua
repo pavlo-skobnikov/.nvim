@@ -1,6 +1,58 @@
 ---@diagnostic disable: undefined-field
 return {
   {
+    'williamboman/mason-lspconfig.nvim', -- Bridges mason.nvim with the lspconfig plugin
+    dependencies = {
+      { 'williamboman/mason.nvim', build = ':MasonUpdate' }, -- Package manager for Neovim
+      'neovim/nvim-lspconfig', -- Configs for the Nvim LSP client (:help lsp)
+      'hrsh7th/cmp-nvim-lsp', -- LSP completion source for nvim-cmp
+    },
+    event = 'VeryLazy',
+    config = function()
+      -- Setup Mason for package management
+      require('mason').setup()
+
+      local mason_config = require 'mason-lspconfig.init'
+      local lsp_config = require 'lspconfig'
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+      -- Setup Mason LSP config
+      mason_config.setup {
+        ensure_installed = {
+          'clangd', -- C
+          'zls', -- Zig
+          'rust_analyzer', -- Rust
+          'lua_ls', -- Lua
+          'pylsp', -- Python
+          'gopls', -- Go
+          'jdtls', -- Java
+          'kotlin_language_server', -- Kotlin
+          'clojure_lsp', -- Clojure
+          -- Scala & Metals are not managed by Mason :)
+          -- Gleam isn't managed by Mason either!
+          'tsserver', -- TypeScript
+          'bashls', -- Bash
+          'marksman', -- Markdown
+          'dockerls', -- Dockerfile
+          'docker_compose_language_service', -- Docker Compose
+          'sqlls', -- SQL
+          'yamlls', -- YAML
+          'jsonls', -- JSON
+        },
+        handlers = {
+          -- Default handler for all LSP servers
+          function(serverName)
+            if vim.tbl_contains({ 'jdtls' }, serverName) then return end
+
+            lsp_config[serverName].setup { capabilities = capabilities }
+          end,
+          -- Java is handled by nvim-jdtls
+          ['jdtls'] = function() end,
+        },
+      }
+    end,
+  },
+  {
     'mfussenegger/nvim-dap', -- Debug Adapter Protocol client
     dependencies = {
       'nvim-neotest/nvim-nio',
@@ -42,8 +94,18 @@ return {
       vim.keymap.set('n', '<leader>dso', dap.step_out, { desc = 'Step Out' })
       -- Breakpoints
       vim.keymap.set('n', '<leader>dbb', dap.toggle_breakpoint, { desc = 'Toggle breakpoint' })
-      vim.keymap.set('n', '<leader>dbc', function() dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ') end, { desc = 'Toggle conditional breakpoint' })
-      vim.keymap.set('n', '<leader>dbl', function() dap.set_breakpoint(nil, nil, vim.fn.input 'Log point message: ') end, { desc = 'Toggle log point' })
+      vim.keymap.set(
+        'n',
+        '<leader>dbc',
+        function() dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ') end,
+        { desc = 'Toggle conditional breakpoint' }
+      )
+      vim.keymap.set(
+        'n',
+        '<leader>dbl',
+        function() dap.set_breakpoint(nil, nil, vim.fn.input 'Log point message: ') end,
+        { desc = 'Toggle log point' }
+      )
       -- Find DAP-related things
       vim.keymap.set('n', '<leader>dfc', dap_telescope.commands, { desc = 'Commands' })
       vim.keymap.set('n', '<leader>dfg', dap_telescope.configurations, { desc = 'Configurations' })
@@ -51,10 +113,20 @@ return {
       vim.keymap.set('n', '<leader>dfv', dap_telescope.variables, { desc = 'Variables' })
       vim.keymap.set('n', '<leader>dff', dap_telescope.frames, { desc = 'Frames' })
       -- Widgets
-      vim.keymap.set({'n', 'v'}, '<leader>dwh', dap_widgets.hover, { desc = 'Hover' })
-      vim.keymap.set({'n', 'v'}, '<leader>dwp', dap_widgets.preview, { desc = 'Preview' })
-      vim.keymap.set('n', '<leader>dwf', function() dap_widgets.centered_float(dap_widgets.frames) end, { desc = 'Frames' })
-      vim.keymap.set('n', '<leader>dws', function() dap_widgets.centered_float(dap_widgets.scopes) end, { desc = 'Scopes' })
+      vim.keymap.set({ 'n', 'v' }, '<leader>dwh', dap_widgets.hover, { desc = 'Hover' })
+      vim.keymap.set({ 'n', 'v' }, '<leader>dwp', dap_widgets.preview, { desc = 'Preview' })
+      vim.keymap.set(
+        'n',
+        '<leader>dwf',
+        function() dap_widgets.centered_float(dap_widgets.frames) end,
+        { desc = 'Frames' }
+      )
+      vim.keymap.set(
+        'n',
+        '<leader>dws',
+        function() dap_widgets.centered_float(dap_widgets.scopes) end,
+        { desc = 'Scopes' }
+      )
 
       -- Register DAP listeners for automatic opening/closing of DAP UI
       dap_listeners.after.event_initialized['dapui_config'] = dap_ui.open
@@ -65,35 +137,6 @@ return {
       dap_ui.setup()
       dap_virtual_text.setup {}
       require('telescope').load_extension 'dap'
-    end,
-  },
-  {
-    'leoluz/nvim-dap-go', -- Debug Adapter for Go
-    dependencies = { 'mfussenegger/nvim-dap' },
-    ft = { 'go' },
-    config = function()
-      local dap_go = require 'dap-go'
-
-      dap_go.setup()
-
-      vim.keymap.set('n', '<leader>mn', dap_go.debug_test, { desc = 'Run nearest test' })
-      vim.keymap.set('n', '<leader>ml', dap_go.debug_last_test, { desc = 'Re-run last test' })
-    end,
-  },
-  {
-    'mfussenegger/nvim-dap-python', -- Debug Adapter for Python
-    dependencies = { 'mfussenegger/nvim-dap' },
-    ft = { 'python' },
-    config = function()
-      local dap_py = require 'dap-python'
-
-      local debugpy_path = require('mason-registry').get_package('debugpy'):get_install_path() .. '/venv/bin/python'
-
-      dap_py.setup(debugpy_path)
-
-      vim.keymap.set('n', '<leader>mc', dap_py.test_class, { desc = 'Test class' })
-      vim.keymap.set('n', '<leader>mn', dap_py.test_method, { desc = 'Test nearest method' })
-      vim.keymap.set({ 'v', 'x' }, '<leader>ms', dap_py.debug_selection, { desc = 'Test selection' })
     end,
   },
 }
