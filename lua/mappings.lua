@@ -19,5 +19,5 @@ vim.keymap.set('n', 'g*', function()
 end)
 
 -- Actions without copying into the default register
-vim.keymap.set('v', '<leader>d', '"_d', { desc = 'Delete without copying' })
-vim.keymap.set('v', '<leader>p', '"_dP', { desc = 'Paste without copying' })
+vim.keymap.set('v', '<leader>D', '"_d', { desc = 'Delete without copying' })
+vim.keymap.set('v', '<leader>P', '"_dP', { desc = 'Paste without copying' })
