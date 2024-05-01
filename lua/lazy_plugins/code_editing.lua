@@ -1,12 +1,12 @@
 return {
   { 'windwp/nvim-autopairs', event = 'InsertEnter', config = true }, -- Auto-pairing of brackets, quotes, etc.
-  { 'numToStr/Comment.nvim', event = 'InsertEnter', config = true }, -- Selection- & motion-based commenting
+  { 'numToStr/Comment.nvim', keys = { 'gc', 'gb' }, config = true }, -- Selection- & motion-based commenting
   { 'tpope/vim-repeat' }, -- Extra dot-repeating functionality
-  { 'tpope/vim-surround', event = 'InsertEnter' }, -- Actions on surrounding characters (e.g. brackets & quotes)
+  { 'tpope/vim-surround', keys = { 'ys', 'ds', 'cs' } }, -- Actions on surrounding characters (e.g. brackets & quotes)
   {
     'julienvincent/nvim-paredit', -- Paredit for Neovim
     event = 'InsertEnter *.clj',
-    config = function()
+    opts = function()
       local paredit = require 'nvim-paredit'
 
       -- Create a function to place the cursor in insert mode at the given position with optional form wrapping
@@ -76,7 +76,7 @@ return {
         ['ie'] = { paredit.api.select_element, 'inner element', mode = obj_modes },
       }
 
-      paredit.setup {
+      return {
         use_default_keys = true,
         filetypes = { 'clojure' },
         cursor_behaviour = 'auto',
@@ -84,5 +84,6 @@ return {
         keys = keymaps,
       }
     end,
+    config = function(_, opts) require('nvim-paredit').setup(opts) end,
   },
 }

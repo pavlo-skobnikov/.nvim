@@ -1,11 +1,11 @@
-local function get_buffer_fname() return vim.api.nvim_buf_get_name(0) end
-
 return {
   'mhartington/formatter.nvim', -- Easy formatter setup goodness
   dependencies = { 'williamboman/mason.nvim', 'nvim-lua/plenary.nvim' },
-  event = 'VeryLazy',
-  config = function()
-    require('formatter.init').setup {
+  keys = { { '<leader>=', '<cmd>FormatWrite<cr>', desc = 'Format & Save' } },
+  opts = function()
+    local function get_buffer_fname() return vim.api.nvim_buf_get_name(0) end
+
+    return {
       logging = true,
       log_level = vim.log.levels.WARN,
       filetype = {
@@ -34,7 +34,6 @@ return {
         ['*'] = { require('formatter.filetypes.any')['remove_trailing_whitespace'] },
       },
     }
-
-    vim.keymap.set('n', '<leader>=', ':FormatWrite<cr>', { desc = 'Format & Save' })
   end,
+  config = function(_, opts) require('formatter.init').setup(opts) end,
 }

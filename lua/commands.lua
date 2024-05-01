@@ -64,18 +64,20 @@ autocmd('LspAttach', {
   callback = function(e)
     local function createOptions(description) return { buffer = e.buf, desc = description } end
 
-    vim.keymap.set('n', '<leader>ra', vim.lsp.buf.code_action, createOptions 'Code action')
-    vim.keymap.set('n', '<leader>rl', vim.lsp.codelens.run, createOptions 'Code lens')
-    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, createOptions 'Rename')
-    vim.keymap.set('n', '<leader>rh', vim.lsp.buf.document_highlight, createOptions 'Highlight')
-    vim.keymap.set('n', '<leader>rf', vim.diagnostic.open_float, createOptions 'Float diagnostics')
+    vim.keymap.set('n', 'cra', vim.lsp.buf.code_action, createOptions 'Code action')
+    vim.keymap.set('n', 'crl', vim.lsp.codelens.run, createOptions 'Code lens')
+    vim.keymap.set('n', 'crn', vim.lsp.buf.rename, createOptions 'Rename')
+    vim.keymap.set('n', 'crh', vim.lsp.buf.document_highlight, createOptions 'Highlight')
+    vim.keymap.set('n', 'crf', vim.diagnostic.open_float, createOptions 'Float diagnostics')
 
-    vim.keymap.set('n', '<leader>rr', vim.lsp.buf.references, createOptions 'References')
-    vim.keymap.set('n', '<leader>rd', vim.lsp.buf.document_symbol, createOptions 'Document symbols')
-    vim.keymap.set('n', '<leader>rw', vim.lsp.buf.workspace_symbol, createOptions 'Workspace symbols')
 
     vim.keymap.set('n', 'gd', vim.lsp.buf.definition, createOptions 'Definition')
     vim.keymap.set('n', 'glt', vim.lsp.buf.type_definition, createOptions 'Type definition')
+
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, createOptions 'References')
+    vim.keymap.set('n', 'gld', vim.lsp.buf.document_symbol, createOptions 'Document symbols')
+    vim.keymap.set('n', 'glw', vim.lsp.buf.workspace_symbol, createOptions 'Workspace symbols')
+
     vim.keymap.set('n', 'gli', vim.lsp.buf.implementation, createOptions 'Implementation')
     vim.keymap.set('n', 'glO', vim.lsp.buf.outgoing_calls, createOptions 'Outgoing calls')
     vim.keymap.set('n', 'glI', vim.lsp.buf.incoming_calls, createOptions 'Incoming calls')

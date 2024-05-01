@@ -7,7 +7,26 @@ return {
       'neovim/nvim-lspconfig', -- Configs for the Nvim LSP client (:help lsp)
       'hrsh7th/cmp-nvim-lsp', -- LSP completion source for nvim-cmp
     },
-    event = 'VeryLazy',
+    ft = {
+      'c',
+      'zig',
+      'rust',
+      'lua',
+      'python',
+      'go',
+      'java',
+      'kotlin',
+      'clojure',
+      'javascript',
+      'typescript',
+      'bash',
+      'markdown',
+      'dockerfile',
+      'docker-compose',
+      'sql',
+      'yaml',
+      'json',
+    },
     config = function()
       -- Setup Mason for package management
       require('mason').setup()
@@ -56,12 +75,53 @@ return {
     'mfussenegger/nvim-dap', -- Debug Adapter Protocol client
     dependencies = {
       'nvim-neotest/nvim-nio',
-      'rcarriga/nvim-dap-ui', -- UI for DAP
-      'theHamsta/nvim-dap-virtual-text', -- Virtual Text for DAP
-      'nvim-telescope/telescope-dap.nvim', -- UI picker extension for DAP
+      'rcarriga/nvim-dap-ui',
+      'theHamsta/nvim-dap-virtual-text',
+      'nvim-telescope/telescope-dap.nvim',
       'nvim-telescope/telescope.nvim',
     },
-    event = 'VeryLazy',
+    keys = function()
+      local dap = require 'dap'
+      local dap_ui = require 'dapui'
+      local dap_widgets = require 'dap.ui.widgets'
+      local dap_telescope = require('telescope').extensions.dap
+
+      return {
+        -- Basic DAP keybindings
+        { '<leader>dd', dap_ui.toggle, desc = 'DAP UI' },
+        { '<leader>do', dap.repl.open, desc = 'Open REPL' },
+        -- Run
+        { '<leader>drc', dap.continue, desc = 'Continue' },
+        { '<leader>drr', dap.run_last, desc = 'Run last' },
+        -- Step
+        { '<leader>dsn', dap.step_over, desc = 'Step Next' },
+        { '<leader>dsi', dap.step_into, desc = 'Step Into' },
+        { '<leader>dso', dap.step_out, desc = 'Step Out' },
+        -- Breakpoints
+        { '<leader>dbb', dap.toggle_breakpoint, desc = 'Toggle breakpoint' },
+        {
+          '<leader>dbc',
+          function() dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ') end,
+          desc = 'Toggle conditional breakpoint',
+        },
+        {
+          '<leader>dbl',
+          function() dap.set_breakpoint(nil, nil, vim.fn.input 'Log point message: ') end,
+          desc = 'Toggle log point',
+        },
+        -- Find DAP-related things
+        { '<leader>dfc', dap_telescope.commands, desc = 'Commands' },
+        { '<leader>dfg', dap_telescope.configurations, desc = 'Configurations' },
+        { '<leader>dfb', dap_telescope.list_breakpoints, desc = 'Breakpoints' },
+        { '<leader>dfv', dap_telescope.variables, desc = 'Variables' },
+        { '<leader>dff', dap_telescope.frames, desc = 'Frames' },
+        -- Widgets
+        { '<leader>dwh', dap_widgets.hover, mode = { 'n', 'v' }, desc = 'Hover' },
+        { '<leader>dwp', dap_widgets.preview, mode = { 'n', 'v' }, desc = 'Preview' },
+        { '<leader>dwf', function() dap_widgets.centered_float(dap_widgets.frames) end, desc = 'Frames' },
+        { '<leader>dws', function() dap_widgets.centered_float(dap_widgets.scopes) end, desc = 'Scopes' },
+      }
+    end,
     config = function()
       -- Redefine DAP signs
       local function set_dap_sign(name, sign)
@@ -74,61 +134,11 @@ return {
       set_dap_sign('DapStopped', '🧲')
       set_dap_sign('DapBreakpointRejected', '❌')
 
-      -- Requires & aliases
-      local dap = require 'dap'
-      local dap_listeners = dap.listeners
-      local dap_ui = require 'dapui'
-      local dap_widgets = require 'dap.ui.widgets'
-      local dap_virtual_text = require 'nvim-dap-virtual-text'
-      local dap_telescope = require('telescope').extensions.dap
-
-      -- Basic DAP keybindings
-      vim.keymap.set('n', '<leader>dd', dap_ui.toggle, { desc = 'DAP UI' })
-      vim.keymap.set('n', '<leader>do', dap.repl.open, { desc = 'Open REPL' })
-      -- Run
-      vim.keymap.set('n', '<leader>drc', dap.continue, { desc = 'Continue' })
-      vim.keymap.set('n', '<leader>drr', dap.run_last, { desc = 'Run last' })
-      -- Step
-      vim.keymap.set('n', '<leader>dsn', dap.step_over, { desc = 'Step Next' })
-      vim.keymap.set('n', '<leader>dsi', dap.step_into, { desc = 'Step Into' })
-      vim.keymap.set('n', '<leader>dso', dap.step_out, { desc = 'Step Out' })
-      -- Breakpoints
-      vim.keymap.set('n', '<leader>dbb', dap.toggle_breakpoint, { desc = 'Toggle breakpoint' })
-      vim.keymap.set(
-        'n',
-        '<leader>dbc',
-        function() dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ') end,
-        { desc = 'Toggle conditional breakpoint' }
-      )
-      vim.keymap.set(
-        'n',
-        '<leader>dbl',
-        function() dap.set_breakpoint(nil, nil, vim.fn.input 'Log point message: ') end,
-        { desc = 'Toggle log point' }
-      )
-      -- Find DAP-related things
-      vim.keymap.set('n', '<leader>dfc', dap_telescope.commands, { desc = 'Commands' })
-      vim.keymap.set('n', '<leader>dfg', dap_telescope.configurations, { desc = 'Configurations' })
-      vim.keymap.set('n', '<leader>dfb', dap_telescope.list_breakpoints, { desc = 'Breakpoints' })
-      vim.keymap.set('n', '<leader>dfv', dap_telescope.variables, { desc = 'Variables' })
-      vim.keymap.set('n', '<leader>dff', dap_telescope.frames, { desc = 'Frames' })
-      -- Widgets
-      vim.keymap.set({ 'n', 'v' }, '<leader>dwh', dap_widgets.hover, { desc = 'Hover' })
-      vim.keymap.set({ 'n', 'v' }, '<leader>dwp', dap_widgets.preview, { desc = 'Preview' })
-      vim.keymap.set(
-        'n',
-        '<leader>dwf',
-        function() dap_widgets.centered_float(dap_widgets.frames) end,
-        { desc = 'Frames' }
-      )
-      vim.keymap.set(
-        'n',
-        '<leader>dws',
-        function() dap_widgets.centered_float(dap_widgets.scopes) end,
-        { desc = 'Scopes' }
-      )
-
       -- Register DAP listeners for automatic opening/closing of DAP UI
+      local dap_listeners = require('dap').listeners
+      local dap_ui = require 'dapui'
+      local dap_virtual_text = require 'nvim-dap-virtual-text'
+
       dap_listeners.after.event_initialized['dapui_config'] = dap_ui.open
       dap_listeners.before.event_terminated['dapui_config'] = dap_ui.close
       dap_listeners.before.event_exited['dapui_config'] = dap_ui.close

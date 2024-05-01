@@ -1,7 +1,7 @@
 return {
   {
     'nvim-treesitter/nvim-treesitter', -- Syntax highlighting
-    event = 'VeryLazy',
+    event = 'BufEnter',
     build = ':TSUpdate',
     config = function()
       ---@diagnostic disable-next-line: missing-fields
@@ -46,7 +46,7 @@ return {
   {
     'nvim-treesitter/nvim-treesitter-textobjects', -- Additional Vim textobjects
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    event = 'VeryLazy',
+    event = 'BufEnter',
     config = function()
       ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup {
@@ -99,19 +99,18 @@ return {
   {
     'nvim-treesitter/nvim-treesitter-context',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    event = 'VeryLazy',
-    config = function()
-      vim.keymap.set(
-        'n',
+    event = 'BufEnter',
+    keys = {
+      {
         'gC',
         function() require('treesitter-context').go_to_context(vim.v.count1) end,
-        { desc = 'Go to surrounding context' }
-      )
-    end,
+        desc = 'Go to surrounding context',
+      },
+    },
   },
   {
     'nvim-treesitter/playground', -- Treesitter query playground
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    event = 'VeryLazy',
+    cmd = 'TSPlaygroundToggle ',
   },
 }
