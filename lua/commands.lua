@@ -64,7 +64,7 @@ autocmd('LspAttach', {
   callback = function(e)
     local function createOptions(description) return { buffer = e.buf, desc = description } end
 
-    vim.keymap.set('n', 'cra', vim.lsp.buf.code_action, createOptions 'Code action')
+    vim.keymap.set('n', 'crr', vim.lsp.buf.code_action, createOptions 'Refactor action')
     vim.keymap.set('n', 'crl', vim.lsp.codelens.run, createOptions 'Code lens')
     vim.keymap.set('n', 'crn', vim.lsp.buf.rename, createOptions 'Rename')
     vim.keymap.set('n', 'crh', vim.lsp.buf.document_highlight, createOptions 'Highlight')
