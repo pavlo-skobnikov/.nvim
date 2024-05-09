@@ -157,4 +157,9 @@ return {
       }, { mode = { 'n', 'v' } })
     end,
   },
+  {
+    'echasnovski/mini.cursorword', -- Dynamic highlighting
+    version = '*',
+    config = function() require('mini.cursorword').setup() end,
+  },
 }
