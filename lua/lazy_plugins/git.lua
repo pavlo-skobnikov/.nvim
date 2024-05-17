@@ -8,7 +8,7 @@ return {
     },
   },
   {
-    'echasnovski/mini.diff',
+    'echasnovski/mini.diff', -- Git gutter and minimalistic diff view
     version = false,
     event = 'BufEnter',
     keys = {

@@ -102,15 +102,10 @@ return {
     event = 'BufEnter',
     keys = {
       {
-        'gC',
+        'glc',
         function() require('treesitter-context').go_to_context(vim.v.count1) end,
-        desc = 'Go to surrounding context',
+        desc = 'Surrounding context',
       },
     },
-  },
-  {
-    'nvim-treesitter/playground', -- Treesitter query playground
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    cmd = 'TSPlaygroundToggle ',
   },
 }

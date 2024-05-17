@@ -1,11 +1,9 @@
 return {
   {
-    'stevearc/oil.nvim',
+    'stevearc/oil.nvim', -- Vim-buffer-like file explorer
     lazy = false,
     priority = 999,
-    keys = {
-      { '-', '<cmd>Oil<cr>', desc = 'File Explorer' },
-    },
+    keys = { { '-', '<cmd>Oil<cr>', desc = 'File Explorer' } },
     opts = {
       -- Show files and directories that start with "."
       view_options = { show_hidden = true },
@@ -33,7 +31,7 @@ return {
     config = function(_, opts) require('oil').setup(opts) end,
   },
   {
-    'ThePrimeagen/harpoon',
+    'ThePrimeagen/harpoon', -- Save files to a list and comfortably navigate between them
     branch = 'harpoon2',
     dependencies = { 'nvim-lua/plenary.nvim' },
     keys = function()

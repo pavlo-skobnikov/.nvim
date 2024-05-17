@@ -158,8 +158,7 @@ return {
     end,
   },
   {
-    'echasnovski/mini.cursorword', -- Dynamic highlighting
-    version = '*',
-    config = function() require('mini.cursorword').setup() end,
+    'RRethy/vim-illuminate', -- Dynamic highlighting
+    event = 'BufEnter',
   },
 }

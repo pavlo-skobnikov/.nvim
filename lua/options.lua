@@ -8,7 +8,7 @@ local options = {
     'noselect',
     'noinsert',
   }, -- A comma separated list of options for Insert mode completion
-  conceallevel = 1, -- Conceal stuff ;)
+  conceallevel = 0, -- Give me all the info
   colorcolumn = '100', -- Visual marker for column width
   fileencoding = 'utf-8', -- The encoding written to a file
   hlsearch = true, -- Highlight all matches on previous search pattern
