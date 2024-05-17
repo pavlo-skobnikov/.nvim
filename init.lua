@@ -18,11 +18,6 @@ end
 
 vim.opt.runtimepath:prepend(lazypath)
 
--- Load base nvim configurations
-require 'commands'
-require 'options'
-require 'mappings'
-
 -- Load plugin configurations
 require('lazy').setup {
   spec = 'lazy_plugins',
