@@ -26,7 +26,6 @@ return {
     },
     event = 'BufEnter',
     build = ':TSUpdate',
-    branch = 'main',
     config = function() require 'plug_configs.nvim-treesitter' end,
   },
 }

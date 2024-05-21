@@ -1,3 +1,4 @@
+-- Typing is too hard 🌚
 return {
   {
     -- Language-agnostic support plugins.
