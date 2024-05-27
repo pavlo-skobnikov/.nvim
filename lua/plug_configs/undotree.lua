@@ -1,1 +1,1 @@
-vim.keymap.set('n', '<leader>u', '<CMD>UndotreeToggle<CR>', { desc = 'Undotree' })
+SetG('n', 'u', '<CMD>UndotreeToggle<CR>', { desc = 'Undo history' })

@@ -10,7 +10,7 @@ return {
     'ThePrimeagen/harpoon', -- Pin files and switch between them quickly 🗃️
     branch = 'harpoon2',
     dependencies = { 'nvim-lua/plenary.nvim' },
-    keys = { '<leader>a', '<leader>h' },
+    event = 'VeryLazy',
     config = function() require 'plug_configs.harpoon' end,
   },
   {
@@ -25,7 +25,7 @@ return {
         build = 'make',
       },
     },
-    keys = { '<leader>t', '<leader>f', '<leader>s', '<leader>/', '<leader>r', '<leader>q' },
+    event = 'VeryLazy',
     config = function() require 'plug_configs.telescope' end,
   },
 }

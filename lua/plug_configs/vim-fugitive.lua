@@ -1,2 +1,2 @@
-vim.keymap.set('n', '<leader>g', '<cmd>Git<cr>', { desc = 'Git' })
-vim.keymap.set('n', 'yog', '<cmd>Git blame<cr>', { desc = 'Git blame' })
+SetG('n', 'gg', '<CMD>Git<CR>', { desc = 'Git' })
+SetG('n', 'gb', '<CMD>Git blame<CR>', { desc = 'Git blame' })

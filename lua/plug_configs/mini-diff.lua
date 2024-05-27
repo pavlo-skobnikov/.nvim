@@ -2,9 +2,9 @@ require('mini.diff').setup {
   view = { style = 'sign' },
   mappings = {
     -- Apply hunks inside a visual/operator region
-    apply = 'gh',
+    apply = P.leader .. 'ghh',
     -- Reset hunks inside a visual/operator region
-    reset = 'gH',
+    reset = P.leader .. 'ghr',
     -- Hunk range textobject to be used inside operator
     textobject = '',
     -- Go to hunk range in corresponding direction
@@ -16,4 +16,4 @@ require('mini.diff').setup {
   options = { wrap_goto = true },
 }
 
-vim.keymap.set('n', 'yoD', MiniDiff.toggle_overlay, { desc = 'Diff overlay' })
+SetG('n', 'gd', MiniDiff.toggle_overlay, { desc = 'Diff overlay' })

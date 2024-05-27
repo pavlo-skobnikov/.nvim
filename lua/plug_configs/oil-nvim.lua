@@ -7,7 +7,9 @@ require('oil').setup {
     ['<C-x>'] = 'actions.select_split',
     ['<C-s>'] = false,
     ['<C-v>'] = 'actions.select_vsplit',
+    ['<C-l>'] = false,
+    ['<C-r>'] = 'actions.refresh',
   },
 }
 
-vim.keymap.set('n', '-', '<cmd>Oil<cr>', { desc = 'File explorer' })
+Set('n', '<M-->', '<cmd>Oil<cr>', { desc = 'File explorer' })

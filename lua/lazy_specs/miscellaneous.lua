@@ -1,5 +1,10 @@
 -- The limbo of plugins that coudln't find a home in other lazy plugin specification files 😔
 return {
+  { -- Zap across the text ⚡︎
+    'folke/flash.nvim',
+    event = 'VeryLazy',
+    config = function() require 'plug_configs.flash-nvim' end,
+  },
   {
     'Tummetott/unimpaired.nvim', -- Useful & comfy mappings for basic Vim commands 🐚
     event = 'BufEnter',
@@ -7,15 +12,18 @@ return {
   },
   {
     'christoomey/vim-tmux-navigator', -- Navigate seamlessly between Vim and Tmux panes 🪟
-    keys = { '<C-h>', '<C-j>', '<C-k>', '<C-l>' },
+    event = 'VeryLazy',
     config = function() require 'plug_configs.vim-tmux-navigator' end,
   },
   {
     'mbbill/undotree', -- Visualize and navigate through local file modification history 📑
-    keys = '<leader>u',
+    event = 'VeryLazy',
     config = function() require 'plug_configs.undotree' end,
   },
-  { 'tpope/vim-repeat' }, -- A helper plugin for other plugins to add dot-repeat functionality 🔧
+  { -- A helper plugin for other plugins to add dot-repeat functionality 🔧
+    'tpope/vim-repeat',
+    event = 'VeryLazy',
+  },
   {
     'folke/which-key.nvim', -- Mapping keys like it's nothing 🎆
     event = 'VeryLazy',

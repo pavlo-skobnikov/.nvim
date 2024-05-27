@@ -7,16 +7,13 @@ lspkind.init()
 
 -- Setup cmp.
 local cmp_mappping_override = {
-  ['<C-y>'] = cmp.mapping(function(fallback)
-    -- This little snippet will confirm or, if no entry is selected, will confirm the first item.
-    if cmp.visible() then
-      local entry = cmp.get_selected_entry()
-      if not entry then cmp.select_next_item { behavior = cmp.SelectBehavior.Select } end
-      cmp.confirm()
-    else
-      fallback()
-    end
-  end, { 'i', 's', 'c' }),
+  ['<TAB>'] = cmp.mapping(
+    cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
+    { 'i', 's', 'c' }
+  ),
 }
 
 cmp.setup {
@@ -41,12 +38,9 @@ cmp.setup {
 }
 
 -- Context-aware completion sources setup
-cmp.setup.cmdline(
-  { '/', '?' },
-  { mapping = cmp.mapping.preset.cmdline(cmp_mappping_override), sources = { { name = 'buffer' } } }
-)
+cmp.setup.cmdline({ '/', '?' }, { mapping = cmp.mapping.preset.cmdline(), sources = { { name = 'buffer' } } })
 cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(cmp_mappping_override),
+  mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({ { name = 'path' } }, { { name = 'cmdline' } }),
 })
 cmp.setup.filetype(
@@ -65,9 +59,16 @@ luasnip.config.set_config {
 }
 
 -- Snippet traversal mappings.
-vim.keymap.set({ 'i' }, '<C-k>', function() luasnip.expand() end, { silent = true })
-vim.keymap.set({ 'i', 's' }, '<C-l>', function() luasnip.jump(1) end, { silent = true })
-vim.keymap.set({ 'i', 's' }, '<C-h>', function() luasnip.jump(-1) end, { silent = true })
-vim.keymap.set({ 'i', 's' }, '<C-e>', function()
-  if luasnip.choice_active() then luasnip.change_choice(1) end
-end, { silent = true })
+vim.keymap.set(
+  { 'i', 's' },
+  '<C-k>',
+  function() return vim.snippet.active { direction = 1 } and vim.snippet.jump(1) end,
+  { silent = true }
+)
+
+vim.keymap.set(
+  { 'i', 's' },
+  '<C-j>',
+  function() return vim.snippet.active { direction = -1 } and vim.snippet.jump(-1) end,
+  { silent = true }
+)

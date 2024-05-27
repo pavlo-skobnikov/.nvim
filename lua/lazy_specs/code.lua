@@ -7,12 +7,8 @@ return {
   },
   {
     'tpope/vim-surround', -- Add, change, and delete paired surrounding characters 🎭
+    event = 'BufEnter',
     keys = { 'ys', 'ds', 'cs' },
-  },
-  {
-    'julienvincent/nvim-paredit', -- (paredit nvim) 🤓
-    event = 'InsertEnter *.clj',
-    config = function() require 'plug_configs.nvim-paredit' end,
   },
   {
     'RRethy/vim-illuminate', -- Auto-highlighting of symbols under the cursor 💡

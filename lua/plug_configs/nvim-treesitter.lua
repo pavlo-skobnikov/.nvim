@@ -56,13 +56,3 @@ require('nvim-treesitter.configs').setup {
     swap = { enable = false },
   },
 }
-
-local repeat_move = require 'nvim-treesitter.textobjects.repeatable_move'
-local modes = { 'n', 'x', 'o' }
-
-vim.keymap.set(modes, ';', repeat_move.repeat_last_move_next)
-vim.keymap.set(modes, ',', repeat_move.repeat_last_move_previous)
-vim.keymap.set(modes, 'f', repeat_move.builtin_f)
-vim.keymap.set(modes, 'F', repeat_move.builtin_F)
-vim.keymap.set(modes, 't', repeat_move.builtin_t)
-vim.keymap.set(modes, 'T', repeat_move.builtin_T)

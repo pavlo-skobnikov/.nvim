@@ -12,7 +12,6 @@ require('formatter.init').setup {
     python = get_ft_formatter('python', 'black'),
     go = get_ft_formatter('go', 'goimports'),
     java = { function() return { exe = 'google-java-format', args = { '-a', get_buffer_fname() }, stdin = true } end },
-    clojure = { function() return { exe = 'cljfmt', args = { 'fix', get_buffer_fname() }, stdin = false } end },
     kotlin = get_ft_formatter('kotlin', 'ktlint'),
     scala = { function() pcall(vim.lsp.buf.format) end },
     javascript = prettier_formatter,
@@ -28,4 +27,4 @@ require('formatter.init').setup {
   },
 }
 
-vim.keymap.set('n', '<leader>=', '<CMD>FormatWrite<CR>', { desc = 'Format & write' })
+Set({ 'n', 'v' }, '<M-=>', '<CMD>FormatWrite<CR>', { desc = 'Format & write' })

@@ -26,7 +26,7 @@ return {
   },
   {
     'mhartington/formatter.nvim', -- Easy formatter setup goodness.
-    keys = { '<leader>=' },
+    event = 'VeryLazy',
     config = function() require 'plug_configs.formatter-nvim' end,
   },
   {
@@ -48,13 +48,8 @@ return {
       'nvim-telescope/telescope-dap.nvim',
       'nvim-telescope/telescope.nvim',
     },
-    keys = '<leader>d',
+    event = 'VeryLazy',
     config = function() require 'plug_configs.nvim-dap' end,
-  },
-  {
-    'Olical/conjure', -- Interactive environment for evaluating code within a running program.
-    dependencies = { 'tpope/vim-dispatch', 'clojure-vim/vim-jack-in' },
-    ft = { 'clojure' },
   },
   -- Language-specific support plugins.
   {
