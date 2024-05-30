@@ -19,8 +19,8 @@ telescope.load_extension 'ui-select'
 local builtin = require 'telescope.builtin'
 
 -- Basic actions
-Set('n', '<M-x>', builtin.commands, { desc = 'Search and execute commands' })
-Set('n', '<M-/>', builtin.current_buffer_fuzzy_find, { desc = 'Fuzzy search in buffer' })
+Set('n', '<C-x>', builtin.commands, { desc = 'Search and execute commands' })
+Set('n', '<C-/>', builtin.current_buffer_fuzzy_find, { desc = 'Fuzzy search in buffer' })
 
 SetG('n', 'fa', '<cmd>Telescope<cr>', { desc = 'Telescope actions' })
 SetG('n', 'fr', builtin.resume, { desc = 'Resume previous search' })

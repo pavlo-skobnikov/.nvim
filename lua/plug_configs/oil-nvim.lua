@@ -12,4 +12,4 @@ require('oil').setup {
   },
 }
 
-Set('n', '<M-->', '<cmd>Oil<cr>', { desc = 'File explorer' })
+Set('n', '-', '<cmd>Oil<cr>', { desc = 'File explorer' })

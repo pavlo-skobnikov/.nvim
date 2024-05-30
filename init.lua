@@ -6,7 +6,7 @@ Register _fake_ leader keys.
   I use a custom function to map keys to the actual leader key.
 --]]
 vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+vim.g.maplocalleader = '\\'
 
 
 --[[
@@ -22,8 +22,8 @@ NOTE: Emacs uses <C-c> as the leader key for local keybindings. However, that
   I've chosen <C-g> as the local leader key as it's the Emacs's "abort" keybinding.
 --]]
 P = {
-  leader = '<C-a>', -- [A]ctions
-  localleader = '<C-x>', -- E[x]tras
+  leader = '<C-a>',
+  localleader = '<C-g>',
 }
 
 -- Shorter alias for setting key mappings.

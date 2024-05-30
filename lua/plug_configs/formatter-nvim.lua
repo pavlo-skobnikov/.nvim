@@ -27,4 +27,4 @@ require('formatter.init').setup {
   },
 }
 
-Set({ 'n', 'v' }, '<M-=>', '<CMD>FormatWrite<CR>', { desc = 'Format & write' })
+Set({ 'n', 'v' }, '=', '<CMD>FormatWrite<CR>', { desc = 'Format & write' })

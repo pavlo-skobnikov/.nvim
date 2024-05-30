@@ -1,6 +1,6 @@
 -- [[ COMMANDS ]]
 
--- A user command to set the tab spaces
+-- A user command to set the tab spaces.
 vim.api.nvim_create_user_command('SetTabSpaces', function(opts)
   local spaces_count = tonumber(opts.fargs[1])
 
@@ -23,7 +23,7 @@ local augroup = vim.api.nvim_create_augroup
 autocmd('FocusGained', {
   group = augroup('CheckFileForExternalChanges', { clear = true }),
   pattern = { '*' },
-  callback = function() vim.cmd 'checktime' end, -- Checks if file was changed while outside of NeoVim
+  callback = function() vim.cmd 'checktime' end, -- Checks if file was changed while outside of NeoVim.
   desc = "Update the file's buffer when there are changes to the file on disk",
 })
 
@@ -65,34 +65,33 @@ autocmd('LspAttach', {
     local builtin = require 'telescope.builtin'
     local function createOptions(description) return { buffer = e.buf, desc = description } end
 
-    vim.keymap.set('n', 'crr', vim.lsp.buf.code_action, createOptions 'Refactor action')
-    vim.keymap.set('n', 'crl', vim.lsp.codelens.run, createOptions 'Code lens')
-    vim.keymap.set('n', 'crn', vim.lsp.buf.rename, createOptions 'Rename')
-    vim.keymap.set('n', 'crh', vim.lsp.buf.document_highlight, createOptions 'Highlight')
-    vim.keymap.set('n', 'crf', vim.diagnostic.open_float, createOptions 'Float diagnostics')
+    SetG('n', 'rr', vim.lsp.buf.code_action, createOptions 'Refactor action')
+    SetG('n', 'rl', vim.lsp.codelens.run, createOptions 'Code lens')
+    SetG('n', 'rn', vim.lsp.buf.rename, createOptions 'Rename')
+    SetG('n', 'rh', vim.lsp.buf.document_highlight, createOptions 'Highlight')
+    SetG('n', 'rf', vim.diagnostic.open_float, createOptions 'Float diagnostics')
 
-    vim.keymap.set('n', 'gr', builtin.lsp_references, createOptions 'References')
-    vim.keymap.set('n', 'gd', builtin.lsp_definitions, createOptions 'Go to definition')
+    SetG('n', 'rgr', builtin.lsp_references, createOptions 'References')
+    SetG('n', 'rgd', builtin.lsp_definitions, createOptions 'Go to definition')
+    SetG('n', 'rgt', builtin.lsp_type_definitions, createOptions 'Go to type definition')
+    SetG('n', 'rgi', builtin.lsp_implementations, createOptions 'Go to implementation')
 
-    vim.keymap.set('n', 'glt', builtin.lsp_type_definitions, createOptions 'Go to type definition')
-    vim.keymap.set('n', 'gli', builtin.lsp_implementations, createOptions 'Go to implementation')
+    SetG('n', 'rdw', builtin.diagnostics, createOptions 'Workspace diagnostics')
+    SetG('n', 'rdf', function() builtin.diagnostics { bufnr = 0 } end, createOptions 'File diagnostics')
 
-    vim.keymap.set('n', 'glew', builtin.diagnostics, createOptions 'Workspace diagnostics')
-    vim.keymap.set('n', 'glef', function() builtin.diagnostics { bufnr = 0 } end, createOptions 'File diagnostics')
+    SetG('n', 'rsd', builtin.lsp_document_symbols, createOptions 'Document symbols')
+    SetG('n', 'ssw', builtin.lsp_workspace_symbols, createOptions 'Workspace symbols')
+    SetG('n', 'sss', builtin.lsp_dynamic_workspace_symbols, createOptions 'Dynamic workspace symbols')
+    SetG('n', 'sst', builtin.treesitter, createOptions 'Treesitter symbols')
 
-    vim.keymap.set('n', 'glsd', builtin.lsp_document_symbols, createOptions 'Document symbols')
-    vim.keymap.set('n', 'glsw', builtin.lsp_workspace_symbols, createOptions 'Workspace symbols')
-    vim.keymap.set('n', 'glsW', builtin.lsp_dynamic_workspace_symbols, createOptions 'Workspace symbols')
-    vim.keymap.set('n', 'glsw', builtin.treesitter, createOptions 'Treesitter symbols')
+    SetG('n', 'rco', builtin.lsp_outgoing_calls, createOptions 'Outgoing calls')
+    SetG('n', 'rci', builtin.lsp_incoming_calls, createOptions 'Incoming calls')
 
-    vim.keymap.set('n', 'glco', builtin.lsp_outgoing_calls, createOptions 'Outgoing calls')
-    vim.keymap.set('n', 'glci', builtin.lsp_incoming_calls, createOptions 'Incoming calls')
+    SetG('n', 'K', vim.lsp.buf.hover, createOptions 'Hover')
+    SetG('i', '<C-s>', vim.lsp.buf.signature_help, createOptions 'Signature help')
 
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, createOptions 'Hover')
-    vim.keymap.set('i', '<C-s>', vim.lsp.buf.signature_help, createOptions 'Signature help')
-
-    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, createOptions 'Previous diagnostic')
-    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, createOptions 'Next diagnostic')
+    SetG('n', '[d', vim.diagnostic.goto_prev, createOptions 'Previous diagnostic')
+    SetG('n', ']d', vim.diagnostic.goto_next, createOptions 'Next diagnostic')
   end,
   desc = 'Set LSP key mappings',
 })

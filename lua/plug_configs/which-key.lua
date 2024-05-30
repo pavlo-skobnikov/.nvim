@@ -12,18 +12,25 @@ which_key.register {
       w = { name = '+widgets' },
     },
     f = { name = '+find' },
+    h = { name = '+harpoon' },
+    r = {
+      name = '+refactor',
+      c = { name = '+calls' },
+      d = { name = '+diagnostics' },
+      g = { name = '+goto' },
+      s = { name = '+symbols' },
+    },
     t = { name = '+toggle' },
   },
-  s = { name = '+surround' },
-  ys = { name = '+surround' },
   ds = { name = '+surround' },
-  yo = { name = '+toggle' },
   gl = {
     name = '+lsp',
     c = { name = '+calls' },
     e = { name = '+errors' },
     s = { name = '+symbols' },
   },
+  s = { name = '+surround' },
+  ys = { name = '+surround' },
   z = { name = '+fold' },
 }
 
@@ -41,6 +48,7 @@ which_key.register({
       name = '+git',
       h = { name = '+hunk' },
     },
+    n = { name = '+notes' },
   },
 }, { mode = { 'n', 'v' } })
 
