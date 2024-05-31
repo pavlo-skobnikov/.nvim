@@ -5,7 +5,7 @@ local function keymapOptions(desc)
     noremap = true,
     silent = true,
     nowait = true,
-    desc = 'GPT: ' .. desc,
+    desc = desc,
   }
 end
 

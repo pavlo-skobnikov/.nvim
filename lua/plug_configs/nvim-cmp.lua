@@ -7,6 +7,10 @@ lspkind.init()
 
 -- Setup cmp.
 local cmp_mappping_override = {
+  ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+  ['<C-f>'] = cmp.mapping.scroll_docs(4),
+  ['<C-Space>'] = cmp.mapping.complete(),
+  ['<C-e>'] = cmp.mapping.abort(),
   ['<TAB>'] = cmp.mapping(
     cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
@@ -59,16 +63,5 @@ luasnip.config.set_config {
 }
 
 -- Snippet traversal mappings.
-vim.keymap.set(
-  { 'i', 's' },
-  '<C-k>',
-  function() return vim.snippet.active { direction = 1 } and vim.snippet.jump(1) end,
-  { silent = true }
-)
-
-vim.keymap.set(
-  { 'i', 's' },
-  '<C-j>',
-  function() return vim.snippet.active { direction = -1 } and vim.snippet.jump(-1) end,
-  { silent = true }
-)
+vim.keymap.set({ 'i', 's' }, '<C-l>', function() return luasnip.jump(1) end, { silent = true })
+vim.keymap.set({ 'i', 's' }, '<C-h>', function() return luasnip.jump(-1) end, { silent = true })

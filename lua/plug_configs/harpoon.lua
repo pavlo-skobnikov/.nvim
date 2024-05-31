@@ -2,7 +2,7 @@ local harpoon = require 'harpoon'
 
 harpoon:setup()
 
-SetG('n', 'hw', function() harpoon:list():add() end, { desc = 'Add file' })
+SetG('n', 'ha', function() harpoon:list():add() end, { desc = 'Add file' })
 SetG('n', 'hl', function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = 'List files' })
 Set('n', '[h', function() harpoon:list():prev() end, { desc = 'Previous mark' })
 Set('n', ']h', function() harpoon:list():next() end, { desc = 'Next mark' })

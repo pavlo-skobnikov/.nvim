@@ -13,8 +13,8 @@ which_key.register {
     },
     f = { name = '+find' },
     h = { name = '+harpoon' },
-    r = {
-      name = '+refactor',
+    l = {
+      name = '+lsp',
       c = { name = '+calls' },
       d = { name = '+diagnostics' },
       g = { name = '+goto' },

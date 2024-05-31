@@ -8,7 +8,6 @@ return {
   {
     'tpope/vim-surround', -- Add, change, and delete paired surrounding characters 🎭
     event = 'BufEnter',
-    keys = { 'ys', 'ds', 'cs' },
   },
   {
     'RRethy/vim-illuminate', -- Auto-highlighting of symbols under the cursor 💡

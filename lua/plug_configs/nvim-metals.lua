@@ -30,3 +30,24 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function() metals.initialize_or_attach(metals_cfg) end,
   desc = 'Set Metals up',
 })
+
+SetG('n', 'mx', function() require('telescope').extensions.metals.commands() end, { desc = 'Metals commands' })
+
+SetG('n', 'mh', ':MetalsSuperMethodHierarchy<CR>', { desc = 'Method hierarchy' })
+SetG('n', 'ma', ':MetalsAnalyzeStacktrace<CR>', { desc = 'Analyze stacktrace' })
+
+SetG('n', 'mo', ':MetalsOrganizeImports<CR>', { desc = 'Organize imports' })
+
+SetG('n', 'mns', ':MetalsNewScalaFile<CR>', { desc = 'New Scala file' })
+SetG('n', 'mnj', ':MetalsNewJavaFile<CR>', { desc = 'New Java file' })
+
+SetG('n', 'mwh', metals.hover_worksheet, { desc = 'Hover expression' })
+SetG('n', 'mwy', ':MetalsCopyWorksheetOutput<CR>', { desc = 'Yank worksheet output' })
+SetG('n', 'mwq', ':MetalsQuickWorksheet<CR>', { desc = 'Create/toggle quick worksheet' })
+
+local tvp = require("metals.tvp")
+
+SetG('n', 'mts', tvp.toggle_tree_view, { desc = 'Toggle project tree view' })
+SetG('n', 'mtj', tvp.reveal_in_tree, { desc = 'Reveal file in project tree' })
+SetG('n', 'mtt', tvp.toggle_node, { desc = 'Toggle node' })
+SetG('n', 'mtc', tvp.node_command, { desc = 'Node command' })

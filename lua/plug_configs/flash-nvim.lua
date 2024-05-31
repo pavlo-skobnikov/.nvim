@@ -1,9 +1,6 @@
 local flash = require 'flash'
 
----@type Flash.Config
-local opts = {}
-
-flash.setup(opts)
+flash.setup {}
 
 Set({ 'n', 'x', 'o' }, '<SPACE>f', flash.jump, { desc = 'Flash' })
 Set({ 'n', 'x', 'o' }, '<SPACE>t', flash.treesitter, { desc = 'Flash Treesitter' })

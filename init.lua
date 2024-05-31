@@ -1,45 +1,22 @@
---[[
-Register _fake_ leader keys.
-
-- Why the need for _fake_ leader keys?
-- NeoVim doesn't support leader keys with modifiers, so, instead
-  I use a custom function to map keys to the actual leader key.
---]]
+-- Register leader keys.
 vim.g.mapleader = ' '
 vim.g.maplocalleader = '\\'
 
-
 --[[
-Define global variables for leader and localleader keys.
+Define global variables for custom leader key.
 
-- Why use <C-...> instead of <SPACE> and similar?
-- This allows to have consistent keybindings across NeoVim and
-  IntelliJ as GUI apps usually allow to create "chord" keybindings
-  that start with key combinations _with_ modifiers.
-
-NOTE: Emacs uses <C-c> as the leader key for local keybindings. However, that
-  mapping is usually reserver for cancelling operations in the terminal. So, instead
-  I've chosen <C-g> as the local leader key as it's the Emacs's "abort" keybinding.
+- Why use <M-e> instead of <SPACE> and similar?
+- This allows to have consistent keybindings across NeoVim and IntelliJ.
 --]]
 P = {
-  leader = '<C-a>',
-  localleader = '<C-g>',
+  leader = '<M-e>',
 }
 
 -- Shorter alias for setting key mappings.
-function Set(modes, keys, action, options)
-  vim.keymap.set(modes, keys, action, options)
-end
+function Set(modes, keys, action, options) vim.keymap.set(modes, keys, action, options) end
 
 -- Map keys to the "global" leader key.
-function SetG(modes, keys, action, options)
-  Set(modes, P.leader .. keys, action, options)
-end
-
--- Map keys to the "local" leader key.
-function SetL(modes, keys, action, options)
-  Set(modes, P.localleader .. keys, action, options)
-end
+function SetG(modes, keys, action, options) Set(modes, P.leader .. keys, action, options) end
 
 -- Bootstrap lazy.nvim 💤
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'

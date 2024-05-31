@@ -1,7 +1,7 @@
 -- The limbo of plugins that coudln't find a home in other lazy plugin specification files 😔
 return {
-  { -- Zap across the text ⚡︎
-    'folke/flash.nvim',
+  {
+    'folke/flash.nvim', -- Zap across the text ⚡︎
     event = 'VeryLazy',
     config = function() require 'plug_configs.flash-nvim' end,
   },
@@ -20,8 +20,8 @@ return {
     event = 'VeryLazy',
     config = function() require 'plug_configs.undotree' end,
   },
-  { -- A helper plugin for other plugins to add dot-repeat functionality 🔧
-    'tpope/vim-repeat',
+  {
+    'tpope/vim-repeat', -- A helper plugin for other plugins to add dot-repeat functionality 🔧
     event = 'VeryLazy',
   },
   {

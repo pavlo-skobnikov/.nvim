@@ -65,30 +65,30 @@ autocmd('LspAttach', {
     local builtin = require 'telescope.builtin'
     local function createOptions(description) return { buffer = e.buf, desc = description } end
 
-    SetG('n', 'rr', vim.lsp.buf.code_action, createOptions 'Refactor action')
-    SetG('n', 'rl', vim.lsp.codelens.run, createOptions 'Code lens')
-    SetG('n', 'rn', vim.lsp.buf.rename, createOptions 'Rename')
-    SetG('n', 'rh', vim.lsp.buf.document_highlight, createOptions 'Highlight')
-    SetG('n', 'rf', vim.diagnostic.open_float, createOptions 'Float diagnostics')
+    SetG('n', 'lr', vim.lsp.buf.code_action, createOptions 'Refactor action')
+    SetG('n', 'll', vim.lsp.codelens.run, createOptions 'Code lens')
+    SetG('n', 'ln', vim.lsp.buf.rename, createOptions 'Rename')
+    SetG('n', 'lh', vim.lsp.buf.document_highlight, createOptions 'Highlight')
+    SetG('n', 'lf', vim.diagnostic.open_float, createOptions 'Float diagnostics')
 
-    SetG('n', 'rgr', builtin.lsp_references, createOptions 'References')
-    SetG('n', 'rgd', builtin.lsp_definitions, createOptions 'Go to definition')
-    SetG('n', 'rgt', builtin.lsp_type_definitions, createOptions 'Go to type definition')
-    SetG('n', 'rgi', builtin.lsp_implementations, createOptions 'Go to implementation')
+    SetG('n', 'lgr', builtin.lsp_references, createOptions 'References')
+    SetG('n', 'lgd', builtin.lsp_definitions, createOptions 'Go to definition')
+    SetG('n', 'lgt', builtin.lsp_type_definitions, createOptions 'Go to type definition')
+    SetG('n', 'lgi', builtin.lsp_implementations, createOptions 'Go to implementation')
 
-    SetG('n', 'rdw', builtin.diagnostics, createOptions 'Workspace diagnostics')
-    SetG('n', 'rdf', function() builtin.diagnostics { bufnr = 0 } end, createOptions 'File diagnostics')
+    SetG('n', 'ldw', builtin.diagnostics, createOptions 'Workspace diagnostics')
+    SetG('n', 'ldf', function() builtin.diagnostics { bufnr = 0 } end, createOptions 'File diagnostics')
 
-    SetG('n', 'rsd', builtin.lsp_document_symbols, createOptions 'Document symbols')
-    SetG('n', 'ssw', builtin.lsp_workspace_symbols, createOptions 'Workspace symbols')
-    SetG('n', 'sss', builtin.lsp_dynamic_workspace_symbols, createOptions 'Dynamic workspace symbols')
-    SetG('n', 'sst', builtin.treesitter, createOptions 'Treesitter symbols')
+    SetG('n', 'lsd', builtin.lsp_document_symbols, createOptions 'Document symbols')
+    SetG('n', 'lsw', builtin.lsp_workspace_symbols, createOptions 'Workspace symbols')
+    SetG('n', 'lss', builtin.lsp_dynamic_workspace_symbols, createOptions 'Dynamic workspace symbols')
+    SetG('n', 'lst', builtin.treesitter, createOptions 'Treesitter symbols')
 
-    SetG('n', 'rco', builtin.lsp_outgoing_calls, createOptions 'Outgoing calls')
-    SetG('n', 'rci', builtin.lsp_incoming_calls, createOptions 'Incoming calls')
+    SetG('n', 'lco', builtin.lsp_outgoing_calls, createOptions 'Outgoing calls')
+    SetG('n', 'lci', builtin.lsp_incoming_calls, createOptions 'Incoming calls')
 
     SetG('n', 'K', vim.lsp.buf.hover, createOptions 'Hover')
-    SetG('i', '<C-s>', vim.lsp.buf.signature_help, createOptions 'Signature help')
+    SetG('i', '<C-S-k>', vim.lsp.buf.signature_help, createOptions 'Signature help')
 
     SetG('n', '[d', vim.diagnostic.goto_prev, createOptions 'Previous diagnostic')
     SetG('n', ']d', vim.diagnostic.goto_next, createOptions 'Next diagnostic')

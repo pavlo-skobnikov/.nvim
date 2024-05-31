@@ -57,6 +57,7 @@ return {
     dependencies = { 'neovim/nvim-lspconfig', 'nvim-treesitter/nvim-treesitter', 'ray-x/guihua.lua' },
     ft = { 'go', 'gomod' },
     build = ':lua require("go.install").update_all_sync()',
+    config = function() require 'plug_configs.go-nvim' end,
   },
   {
     'nvim-java/nvim-java', -- Java support.
@@ -74,15 +75,18 @@ return {
       },
     },
     ft = { 'java' },
+    config = function() require 'plug_configs.nvim-java' end,
   },
   {
     'mfussenegger/nvim-dap-python', -- Python debugging support.
     dependencies = { 'mfussenegger/nvim-dap' },
     ft = { 'python' },
+    config = function() require 'plug_configs.nvim-dap-python' end,
   },
   {
     'scalameta/nvim-metals', -- Scala support.
     dependencies = { 'mfussenegger/nvim-dap', 'nvim-lua/plenary.nvim' },
     ft = { 'scala', 'sbt' },
+    config = function() require 'plug_configs.nvim-metals' end,
   },
 }
