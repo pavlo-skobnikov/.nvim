@@ -87,11 +87,11 @@ autocmd('LspAttach', {
     SetG('n', 'lco', builtin.lsp_outgoing_calls, createOptions 'Outgoing calls')
     SetG('n', 'lci', builtin.lsp_incoming_calls, createOptions 'Incoming calls')
 
-    SetG('n', 'K', vim.lsp.buf.hover, createOptions 'Hover')
-    SetG('i', '<C-S-k>', vim.lsp.buf.signature_help, createOptions 'Signature help')
+    Set('n', 'K', vim.lsp.buf.hover, createOptions 'Hover')
+    Set('i', '<C-M-k>', vim.lsp.buf.signature_help, createOptions 'Signature help')
 
-    SetG('n', '[d', vim.diagnostic.goto_prev, createOptions 'Previous diagnostic')
-    SetG('n', ']d', vim.diagnostic.goto_next, createOptions 'Next diagnostic')
+    Set('n', '[d', vim.diagnostic.goto_prev, createOptions 'Previous diagnostic')
+    Set('n', ']d', vim.diagnostic.goto_next, createOptions 'Next diagnostic')
   end,
   desc = 'Set LSP key mappings',
 })
