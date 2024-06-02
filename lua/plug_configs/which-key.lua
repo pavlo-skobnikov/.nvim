@@ -1,7 +1,7 @@
 local which_key = require 'which-key'
 
 which_key.register {
-  [P.leader] = {
+  [Leader] = {
     name = '+leader',
     d = {
       name = '+dap',
@@ -35,7 +35,7 @@ which_key.register {
 }
 
 which_key.register({
-  [P.leader] = {
+  [Leader] = {
     c = {
       name = '+chat-gpt',
       g = { name = '+generate' },

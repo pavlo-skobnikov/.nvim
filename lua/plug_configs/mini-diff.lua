@@ -2,9 +2,9 @@ require('mini.diff').setup {
   view = { style = 'sign' },
   mappings = {
     -- Apply hunks inside a visual/operator region
-    apply = P.leader .. 'ghh',
+    apply = Leader .. 'ghh',
     -- Reset hunks inside a visual/operator region
-    reset = P.leader .. 'ghr',
+    reset = Leader .. 'ghr',
     -- Hunk range textobject to be used inside operator
     textobject = '',
     -- Go to hunk range in corresponding direction

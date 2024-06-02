@@ -1,7 +1,6 @@
 local java = require 'java'
 
 java.setup()
-
 require('lspconfig').jdtls.setup {}
 
 SetG('n', 'mr', java.runner.built_in.run_app, { desc = 'Run' })

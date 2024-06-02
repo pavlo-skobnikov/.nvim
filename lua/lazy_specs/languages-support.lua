@@ -53,16 +53,10 @@ return {
   },
   -- Language-specific support plugins.
   {
-    'ray-x/go.nvim', -- Go support.
-    dependencies = { 'neovim/nvim-lspconfig', 'nvim-treesitter/nvim-treesitter', 'ray-x/guihua.lua' },
-    ft = { 'go', 'gomod' },
-    build = ':lua require("go.install").update_all_sync()',
-    config = function() require 'plug_configs.go-nvim' end,
-  },
-  {
-    'nvim-java/nvim-java', -- Java support.
+    'nvim-java/nvim-java',
     dependencies = {
       'nvim-java/lua-async-await',
+      'nvim-java/nvim-java-refactor',
       'nvim-java/nvim-java-core',
       'nvim-java/nvim-java-test',
       'nvim-java/nvim-java-dap',
@@ -71,17 +65,15 @@ return {
       'mfussenegger/nvim-dap',
       {
         'williamboman/mason.nvim',
-        opts = { registries = { 'github:nvim-java/mason-registry', 'github:mason-org/mason-registry' } },
+        opts = {
+          registries = {
+            'github:nvim-java/mason-registry',
+            'github:mason-org/mason-registry',
+          },
+        },
       },
     },
-    ft = { 'java' },
     config = function() require 'plug_configs.nvim-java' end,
-  },
-  {
-    'mfussenegger/nvim-dap-python', -- Python debugging support.
-    dependencies = { 'mfussenegger/nvim-dap' },
-    ft = { 'python' },
-    config = function() require 'plug_configs.nvim-dap-python' end,
   },
   {
     'scalameta/nvim-metals', -- Scala support.

@@ -6,7 +6,7 @@ local function get_mapping(mapping, description)
   }
 end
 
-local function get_leader_mapping(mapping, description) return get_mapping(P.leader .. mapping, description) end
+local function get_leader_mapping(mapping, description) return get_mapping(Leader .. mapping, description) end
 
 require('unimpaired').setup {
   default_keymaps = false,
