@@ -5,6 +5,11 @@ return {
     event = 'InsertEnter',
     config = true,
   },
+  { -- Like autopairs but for HTML tags (and even better) 🏷️
+    'windwp/nvim-ts-autotag',
+    event = 'VeryLazy',
+    config = true,
+  },
   { -- Add, change, and delete paired surrounding characters 🎭
     'tpope/vim-surround',
     event = 'BufEnter',
@@ -12,6 +17,21 @@ return {
   { -- Auto-highlighting of symbols under the cursor 💡
     'RRethy/vim-illuminate',
     event = 'BufEnter',
+  },
+  { -- Colort highlighter and picker for Neovim 🎨
+    'uga-rosa/ccc.nvim',
+    event = 'VeryLazy',
+    opts = {
+      highlighter = {
+        auto_enable = true,
+        lsp = true,
+      },
+    },
+    config = function(_, opts)
+      vim.opt.termguicolors = true
+
+      require('ccc').setup(opts)
+    end,
   },
   { -- Useful & comfy mappings for basic Vim commands 🐚
     'Tummetott/unimpaired.nvim',
