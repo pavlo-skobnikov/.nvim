@@ -131,50 +131,61 @@ return {
     config = function(_, opts) require('formatter.init').setup(opts) end,
   },
   {
-    'williamboman/mason-lspconfig.nvim', -- Bridges mason.nvim with the lspconfig plugin.
+    'WhoIsSethDaniel/mason-tool-installer.nvim', -- Allows to programmatically define required tools for Mason.
     dependencies = {
-      { 'williamboman/mason.nvim', build = ':MasonUpdate' },
-      'neovim/nvim-lspconfig',
+      { 'williamboman/mason.nvim', build = ':MasonUpdate' }, -- Easy language server and other tools management.
+      'neovim/nvim-lspconfig', -- LSP configuration galore.
       'hrsh7th/cmp-nvim-lsp',
     },
     event = 'VeryLazy',
     config = function()
       require('mason').setup()
-
-      local mason_config = require 'mason-lspconfig.init'
-      local lsp_config = require 'lspconfig'
+      local lspconfig = require 'lspconfig'
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-      -- Setup Mason LSP config
-      mason_config.setup {
+      require('mason-tool-installer').setup {
         ensure_installed = {
-          'clangd', -- C
-          'lua_ls', -- Lua
-          'pylsp', -- Python
-          'gopls', -- Go
-          'jdtls', -- Java
-          'kotlin_language_server', -- Kotlin
-          -- Scala & Metals are not managed by Mason :)
-          'tsserver', -- TypeScript
-          'bashls', -- Bash
-          'marksman', -- Markdown
-          'dockerls', -- Dockerfile
-          'docker_compose_language_service', -- Docker Compose
-          'sqlls', -- SQL
-          'yamlls', -- YAML
-          'jsonls', -- JSON
+          -- Lua
+          'lua-language-server',
+          'stylua',
+          -- Kotlin
+          'kotlin-language-server',
+          'kotlin-debug-adapter',
+          'ktlint',
+          -- HTML
+          'html-lsp',
+          'emmet-language-server',
+          -- CSS
+          'css-lsp',
+          'tailwindcss-language-server',
+          'stylelint',
+          -- JavaScript
+          'typescript-language-server',
+          'eslint-lsp',
+          -- Other tools
+          'prettier',
         },
-        handlers = {
-          -- Default handler for all LSP servers
-          function(serverName)
-            if vim.tbl_contains({ 'jdtls' }, serverName) then return end
 
-            lsp_config[serverName].setup { capabilities = capabilities }
-          end,
-          -- Java is handled by nvim-jdtls
-          ['jdtls'] = function() end,
+        integrations = {
+          ['mason-lspconfig'] = false,
+          ['mason-null-ls'] = false,
+          ['mason-nvim-dap'] = false,
         },
       }
+
+      -- Setup LSP for Mason-managed servers
+      lspconfig.lua_ls.setup { capabilities = capabilities }
+
+      lspconfig.kotlin_language_server.setup { capabilities = capabilities }
+
+      lspconfig.html.setup { capabilities = capabilities }
+      lspconfig.emmet_language_server.setup { capabilities = capabilities }
+
+      lspconfig.cssls.setup { capabilities = capabilities }
+      lspconfig.tailwindcss.setup { capabilities = capabilities }
+
+      lspconfig.tsserver.setup { capabilities = capabilities }
+      lspconfig.eslint.setup { capabilities = capabilities }
     end,
   },
   {
