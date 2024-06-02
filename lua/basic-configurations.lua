@@ -1,4 +1,5 @@
 -- [[ Options ]]
+
 local options = {
   backup = false, -- Creates a backup file.
   clipboard = 'unnamedplus', -- Allows neovim to access the system clipboard.
@@ -9,7 +10,7 @@ local options = {
     'noselect',
     'noinsert',
   }, -- A comma separated list of options for Insert mode completion.
-  conceallevel = 2, -- Hide some stuff in markdown.
+  conceallevel = 0, -- Hide some stuff in markdown.
   colorcolumn = '100', -- Visual marker for column width.
   fileencoding = 'utf-8', -- The encoding written to a file.
   hlsearch = true, -- Highlight all matches on previous search pattern.
@@ -132,35 +133,35 @@ autocmd('LspAttach', {
   pattern = { '*' },
   callback = function(e)
     local builtin = require 'telescope.builtin'
-    local function createOptions(description) return { buffer = e.buf, desc = description } end
+    local function create_options(description) return { buffer = e.buf, desc = description } end
 
-    SetG('n', 'lr', vim.lsp.buf.code_action, createOptions 'Refactor action')
-    SetG('n', 'll', vim.lsp.codelens.run, createOptions 'Code lens')
-    SetG('n', 'ln', vim.lsp.buf.rename, createOptions 'Rename')
-    SetG('n', 'lh', vim.lsp.buf.document_highlight, createOptions 'Highlight')
-    SetG('n', 'lf', vim.diagnostic.open_float, createOptions 'Float diagnostics')
+    SetG('n', 'lr', vim.lsp.buf.code_action, create_options 'Refactor action')
+    SetG('n', 'll', vim.lsp.codelens.run, create_options 'Code lens')
+    SetG('n', 'ln', vim.lsp.buf.rename, create_options 'Rename')
+    SetG('n', 'lh', vim.lsp.buf.document_highlight, create_options 'Highlight')
+    SetG('n', 'lf', vim.diagnostic.open_float, create_options 'Float diagnostics')
 
-    SetG('n', 'lgr', builtin.lsp_references, createOptions 'References')
-    SetG('n', 'lgd', builtin.lsp_definitions, createOptions 'Go to definition')
-    SetG('n', 'lgt', builtin.lsp_type_definitions, createOptions 'Go to type definition')
-    SetG('n', 'lgi', builtin.lsp_implementations, createOptions 'Go to implementation')
+    SetG('n', 'lgr', builtin.lsp_references, create_options 'References')
+    SetG('n', 'lgd', builtin.lsp_definitions, create_options 'Go to definition')
+    SetG('n', 'lgt', builtin.lsp_type_definitions, create_options 'Go to type definition')
+    SetG('n', 'lgi', builtin.lsp_implementations, create_options 'Go to implementation')
 
-    SetG('n', 'ldw', builtin.diagnostics, createOptions 'Workspace diagnostics')
-    SetG('n', 'ldf', function() builtin.diagnostics { bufnr = 0 } end, createOptions 'File diagnostics')
+    SetG('n', 'ldw', builtin.diagnostics, create_options 'Workspace diagnostics')
+    SetG('n', 'ldf', function() builtin.diagnostics { bufnr = 0 } end, create_options 'File diagnostics')
 
-    SetG('n', 'lsd', builtin.lsp_document_symbols, createOptions 'Document symbols')
-    SetG('n', 'lsw', builtin.lsp_workspace_symbols, createOptions 'Workspace symbols')
-    SetG('n', 'lss', builtin.lsp_dynamic_workspace_symbols, createOptions 'Dynamic workspace symbols')
-    SetG('n', 'lst', builtin.treesitter, createOptions 'Treesitter symbols')
+    SetG('n', 'lsd', builtin.lsp_document_symbols, create_options 'Document symbols')
+    SetG('n', 'lsw', builtin.lsp_workspace_symbols, create_options 'Workspace symbols')
+    SetG('n', 'lss', builtin.lsp_dynamic_workspace_symbols, create_options 'Dynamic workspace symbols')
+    SetG('n', 'lst', builtin.treesitter, create_options 'Treesitter symbols')
 
-    SetG('n', 'lco', builtin.lsp_outgoing_calls, createOptions 'Outgoing calls')
-    SetG('n', 'lci', builtin.lsp_incoming_calls, createOptions 'Incoming calls')
+    SetG('n', 'lco', builtin.lsp_outgoing_calls, create_options 'Outgoing calls')
+    SetG('n', 'lci', builtin.lsp_incoming_calls, create_options 'Incoming calls')
 
-    SetG({ 'n', 'v' }, 'li', vim.lsp.buf.hover, createOptions 'Hover')
-    Set({ 'n', 'v', 'i' }, 'lp', vim.lsp.buf.signature_help, createOptions 'Signature help')
+    SetG({ 'n', 'v' }, 'li', vim.lsp.buf.hover, create_options 'Hover')
+    SetG({ 'n', 'v', 'i' }, 'lp', vim.lsp.buf.signature_help, create_options 'Signature help')
 
-    Set('n', '[d', vim.diagnostic.goto_prev, createOptions 'Previous diagnostic')
-    Set('n', ']d', vim.diagnostic.goto_next, createOptions 'Next diagnostic')
+    Set('n', '[d', vim.diagnostic.goto_prev, create_options 'Previous diagnostic')
+    Set('n', ']d', vim.diagnostic.goto_next, create_options 'Next diagnostic')
   end,
   desc = 'Set LSP key mappings',
 })
@@ -173,16 +174,21 @@ Set('n', '<ESC>', function()
   vim.lsp.buf.clear_references()
 end, { desc = 'Escape and clear highlights' })
 
-Set('n', '<c-d>', '<C-d>zz', { desc = 'Page down and center screen' })
-Set('n', '<c-u>', '<C-u>zz', { desc = 'Page up and center screen' })
+Set('n', '<C-d>', '<C-d>zz', { desc = 'Page down and center screen' })
+Set('n', '<C-u>', '<C-u>zz', { desc = 'Page up and center screen' })
 
 -- Trim patches of whitespace to a single space.
-Set('n', 'd<space>', 'f<space>diwi<space><esc>', { desc = 'Delete whitespaces' })
-Set('n', 'c<space>', 'f<space>diwi<space>', { desc = 'Change whitespaces' })
+Set('n', 'd<SPACE>', 'f<SPACE>diwi<SPACE><ESC>', { desc = 'Delete whitespaces' })
+Set('n', 'c<SPACE>', 'f<SPACE>diwi<SPACE>', { desc = 'Change whitespaces' })
 
 -- Highlight word under cursor.
-SetG('n', '*', function() vim.fn.matchadd('Search', vim.fn.expand '<cword>') end)
+SetG(
+  'n',
+  '*',
+  function() vim.fn.matchadd('Search', vim.fn.expand '<cword>') end,
+  { desc = 'Highlight word under cursor' }
+)
 
 -- Actions without copying into the default register.
-Set('v', '<leader>d', '"_d', { desc = 'Delete without copying' })
-Set('v', '<leader>p', '"_dP', { desc = 'Paste without copying' })
+Set('v', '<SPACE>d', '"_d', { desc = 'Delete without copying' })
+Set('v', '<SPACE>p', '"_dP', { desc = 'Paste without copying' })

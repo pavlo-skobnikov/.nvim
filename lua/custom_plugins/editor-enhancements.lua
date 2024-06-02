@@ -1,33 +1,29 @@
 -- View it, snip it, yank it, code it. Now with extra comfort and speed! 🚘
 return {
-  {
-    'windwp/nvim-autopairs', -- Even quotes and brackets shouldn't be alone, don't you think?
+  { -- Even quotes and brackets shouldn't be alone, don't you think?
+    'windwp/nvim-autopairs',
     event = 'InsertEnter',
     config = true,
   },
-  {
-    'tpope/vim-surround', -- Add, change, and delete paired surrounding characters 🎭
+  { -- Add, change, and delete paired surrounding characters 🎭
+    'tpope/vim-surround',
     event = 'BufEnter',
   },
-  {
-    'RRethy/vim-illuminate', -- Auto-highlighting of symbols under the cursor 💡
+  { -- Auto-highlighting of symbols under the cursor 💡
+    'RRethy/vim-illuminate',
     event = 'BufEnter',
   },
-  {
-    'Tummetott/unimpaired.nvim', -- Useful & comfy mappings for basic Vim commands 🐚
+  { -- Useful & comfy mappings for basic Vim commands 🐚
+    'Tummetott/unimpaired.nvim',
     event = 'BufEnter',
-    config = function()
+    opts = function()
       local function get_mapping(mapping, description)
-        return {
-          mapping = mapping,
-          description = description,
-          dot_repeat = true,
-        }
+        return { mapping = mapping, description = description, dot_repeat = true }
       end
 
       local function get_leader_mapping(mapping, description) return get_mapping(Leader .. mapping, description) end
 
-      require('unimpaired').setup {
+      return {
         default_keymaps = false,
         keymaps = {
           cprevious = get_mapping('[q', 'Previous [count] qflist'),
@@ -49,99 +45,100 @@ return {
       }
     end,
   },
-  {
-    'nvim-treesitter/nvim-treesitter', -- Blazingly-fast syntax highlighting 🌅
+  { -- Blazingly-fast syntax highlighting 🌅
+    'nvim-treesitter/nvim-treesitter',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-context', -- Always see the surrounding context even if it's too far up.
       'nvim-treesitter/nvim-treesitter-textobjects', -- Additional text objects to play around with.
     },
     event = 'BufEnter',
     build = ':TSUpdate',
-    config = function()
-      ---@diagnostic disable: missing-fields
-      require('nvim-treesitter.configs').setup {
-        ensure_installed = {
-          'c', -- Parsers required for Treesitter to function
-          'lua',
-          'vim',
-          'vimdoc',
-          'query',
-          'diff', -- Additional parsers
-          'gitattributes',
-          'gitcommit',
-          'gitignore',
-          'comment',
-          'markdown',
-          'markdown_inline',
-        },
+    opts = {
+      ensure_installed = {
+        'c', -- Parsers required for Treesitter to function
+        'lua',
+        'vim',
+        'vimdoc',
+        'query',
+        'diff', -- Additional parsers
+        'gitattributes',
+        'gitcommit',
+        'gitignore',
+        'comment',
+        'markdown',
+        'markdown_inline',
+      },
 
-        sync_install = false, -- Install parsers synchronously
-        auto_install = true, -- Auto-install missing parsers when entering buffer
-        highlight = { enable = true, additional_vim_regex_highlighting = false },
-        indent = { enable = false },
-        incremental_selection = {
+      sync_install = false, -- Install parsers synchronously
+      auto_install = true, -- Auto-install missing parsers when entering buffer
+      highlight = { enable = true, additional_vim_regex_highlighting = false },
+      indent = { enable = false },
+      incremental_selection = {
+        enable = true,
+        keymaps = {
+          init_selection = 'gs',
+          node_incremental = ';',
+          node_decremental = ',',
+          scope_incremental = false,
+        },
+      },
+
+      -- Configure additional textobjects
+      textobjects = {
+        select = {
           enable = true,
+          lookahead = true,
           keymaps = {
-            init_selection = 'gs',
-            node_incremental = ';',
-            node_decremental = ',',
-            scope_incremental = false,
+            ['ia'] = { query = '@parameter.inner', desc = 'inner argument' },
+            ['aa'] = { query = '@parameter.outer', desc = 'around argument' },
+            ['if'] = { query = '@function.inner', desc = 'inner function' },
+            ['af'] = { query = '@function.outer', desc = 'around function' },
           },
         },
-
-        -- Configure additional textobjects
-        textobjects = {
-          select = {
-            enable = true,
-            lookahead = true,
-            keymaps = {
-              ['ia'] = { query = '@parameter.inner', desc = 'inner argument' },
-              ['aa'] = { query = '@parameter.outer', desc = 'around argument' },
-              ['if'] = { query = '@function.inner', desc = 'inner function' },
-              ['af'] = { query = '@function.outer', desc = 'around function' },
-            },
+        move = {
+          enable = true,
+          set_jumps = true,
+          goto_next_start = {
+            [']a'] = { query = '@parameter.inner', desc = 'Next argument' },
+            [']f'] = { query = '@function.outer', desc = 'Next function' },
           },
-          move = {
-            enable = true,
-            set_jumps = true,
-            goto_next_start = {
-              [']a'] = { query = '@parameter.inner', desc = 'Next argument' },
-              [']f'] = { query = '@function.outer', desc = 'Next function' },
-            },
-            goto_previous_start = {
-              ['[a'] = { query = '@parameter.inner', desc = 'Previous argument' },
-              ['[f'] = { query = '@function.outer', desc = 'Previous function' },
-            },
+          goto_previous_start = {
+            ['[a'] = { query = '@parameter.inner', desc = 'Previous argument' },
+            ['[f'] = { query = '@function.outer', desc = 'Previous function' },
           },
-          swap = { enable = false },
         },
-      }
-    end,
+        swap = {
+          enable = true,
+          swap_next = { [Leader .. 'sna'] = { query = '@parameter.inner', desc = 'Swap next argument' } },
+          swap_previous = { [Leader .. 'spa'] = { query = '@parameter.inner', desc = 'Swap previous argument' } },
+        },
+      },
+    },
+    config = function(_, opts) require('nvim-treesitter.configs').setup(opts) end,
   },
-  {
-    'christoomey/vim-tmux-navigator', -- Navigate seamlessly between Vim and Tmux panes 🪟
-    event = 'VeryLazy',
+  { -- Navigate seamlessly between Vim and Tmux panes 🪟
+    'christoomey/vim-tmux-navigator',
+    keys = {
+      { '<C-h>', '<CMD>TmuxNavigateLeft<CR>', desc = 'Navigate window/pane left' },
+      { '<C-j>', '<CMD>TmuxNavigateDown<CR>', desc = 'Navigate window/pane down' },
+      { '<C-k>', '<CMD>TmuxNavigateUp<CR>', desc = 'Navigate window/pane up' },
+      { '<C-l>', '<CMD>TmuxNavigateRight<CR>', desc = 'Navigate window/pane right' },
+    },
     config = function()
       vim.g.tmux_navigator_no_mappings = 1
       vim.g.tmux_navigator_save_on_switch = 2
-
-      vim.keymap.set('n', '<C-h>', '<CMD>TmuxNavigateLeft<CR>', { desc = 'Navigate window/pane left' })
-      vim.keymap.set('n', '<C-j>', '<CMD>TmuxNavigateDown<CR>', { desc = 'Navigate window/pane down' })
-      vim.keymap.set('n', '<C-k>', '<CMD>TmuxNavigateUp<CR>', { desc = 'Navigate window/pane up' })
-      vim.keymap.set('n', '<C-l>', '<CMD>TmuxNavigateRight<CR>', { desc = 'Navigate window/pane right' })
     end,
   },
-  {
-    'mbbill/undotree', -- Visualize and navigate through local file modification history 📑
-    event = 'VeryLazy',
-    config = function() SetG('n', 'u', '<CMD>UndotreeToggle<CR>', { desc = 'Undo history' }) end,
+  { -- Visualize and navigate through local file modification history 📑
+    'mbbill/undotree',
+    keys = { { Leader .. 'u', '<CMD>UndotreeToggle<CR>', desc = 'Undo history' } },
   },
-  {
-    'tpope/vim-repeat', -- A helper plugin for other plugins to add dot-repeat functionality 🔧
-    event = 'VeryLazy',
+  { -- A helper plugin for other plugins to add dot-repeat functionality 🔧
+    'tpope/vim-repeat',
+    lazy = false,
   },
-  {
-    'folke/which-key.nvim', -- Mapping keys like it's nothing 🎆
+  { -- Mapping keys like it's nothing 🎆
+    'folke/which-key.nvim',
     event = 'VeryLazy',
     config = function()
       local which_key = require 'which-key'
@@ -167,6 +164,7 @@ return {
             s = { name = '+symbols' },
           },
           t = { name = '+toggle' },
+          s = { name = '+swap' },
         },
         ds = { name = '+surround' },
         gl = {
@@ -194,6 +192,7 @@ return {
             name = '+git',
             h = { name = '+hunk' },
           },
+          l = { name = '+lsp' },
           n = { name = '+notes' },
         },
       }, { mode = { 'n', 'v' } })

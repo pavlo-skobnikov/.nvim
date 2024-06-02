@@ -4,8 +4,9 @@ return { -- A purrfect colorscheme for Neovim 🐱
   lazy = false,
   priority = 1000,
   main = 'catppuccin',
-  config = function()
-    require('catppuccin').setup { flavour = 'frappe' }
+  opts = { flavour = 'frappe' },
+  config = function(_, opts)
+    require('catppuccin').setup(opts)
 
     vim.cmd [[ colorscheme catppuccin ]]
   end,

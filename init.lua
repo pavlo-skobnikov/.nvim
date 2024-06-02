@@ -40,6 +40,6 @@ vim.opt.runtimepath:prepend(lazypath)
 
 -- Load plugin configurations.
 require('lazy').setup {
-  spec = 'lazy_specs',
+  spec = 'custom_plugins',
   change_detection = { notify = false },
 }

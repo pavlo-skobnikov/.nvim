@@ -1,4 +1,6 @@
--- Typing is too hard 🌚
+---@diagnostic disable: undefined-field
+-- Searching for symbols, typing them, formatting files, and writing code correctly on the first
+-- go is too hard 🌚
 return {
   {
     -- Language-agnostic support plugins.
@@ -88,27 +90,26 @@ return {
       }
 
       -- Snippet traversal mappings.
-      vim.keymap.set({ 'i', 's' }, '<C-l>', function() return luasnip.jump(1) end, { silent = true })
-      vim.keymap.set({ 'i', 's' }, '<C-h>', function() return luasnip.jump(-1) end, { silent = true })
+      Set({ 'i', 's' }, '<C-n>', function() return luasnip.jump(1) end, { silent = true })
+      Set({ 'i', 's' }, '<C-p>', function() return luasnip.jump(-1) end, { silent = true })
     end,
   },
   {
     'mhartington/formatter.nvim', -- Easy formatter setup goodness.
-    event = 'VeryLazy',
-    config = function()
+    keys = {
+      { '=', '<CMD>FormatWrite<CR>', mode = { 'n', 'v' }, desc = 'Format & write' },
+    },
+    opts = function()
       local function get_ft_formatter(ft, formatter) return { require('formatter.filetypes.' .. ft)[formatter] } end
       local function get_buffer_fname() return vim.api.nvim_buf_get_name(0) end
 
       local prettier_formatter = { require 'formatter.defaults.prettier' }
 
-      require('formatter.init').setup {
+      return {
         logging = true,
         log_level = vim.log.levels.WARN,
         filetype = {
-          c = get_ft_formatter('c', 'clangformat'),
           lua = get_ft_formatter('lua', 'stylua'),
-          python = get_ft_formatter('python', 'black'),
-          go = get_ft_formatter('go', 'goimports'),
           java = {
             function() return { exe = 'google-java-format', args = { '-a', get_buffer_fname() }, stdin = true } end,
           },
@@ -126,9 +127,8 @@ return {
           ['*'] = get_ft_formatter('any', 'remove_trailing_whitespace'),
         },
       }
-
-      Set({ 'n', 'v' }, '=', '<CMD>FormatWrite<CR>', { desc = 'Format & write' })
     end,
+    config = function(_, opts) require('formatter.init').setup(opts) end,
   },
   {
     'williamboman/mason-lspconfig.nvim', -- Bridges mason.nvim with the lspconfig plugin.
@@ -186,12 +186,50 @@ return {
       'nvim-telescope/telescope-dap.nvim',
       'nvim-telescope/telescope.nvim',
     },
-    event = 'VeryLazy',
-    config = function()
+    keys = function()
       local dap = require 'dap'
       local dap_ui = require 'dapui'
       local dap_widgets = require 'dap.ui.widgets'
       local dap_telescope = require('telescope').extensions.dap
+
+      return {
+        -- Basic DAP keybindings.
+        { Leader .. 'dd', dap_ui.toggle, desc = 'DAP UI' },
+        { Leader .. 'do', dap.repl.open, desc = 'Open REPL' },
+        -- Run.
+        { Leader .. 'drc', dap.continue, desc = 'Continue' },
+        { Leader .. 'drr', dap.run_last, desc = 'Run last' },
+        -- Step.
+        { Leader .. 'dsn', dap.step_over, desc = 'Step Next' },
+        { Leader .. 'dsi', dap.step_into, desc = 'Step Into' },
+        { Leader .. 'dso', dap.step_out, desc = 'Step Out' },
+        -- Breakpoints.
+        { Leader .. 'dbb', dap.toggle_breakpoint, desc = 'Toggle breakpoint' },
+        {
+          'dbc',
+          function() dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ') end,
+          desc = 'Toggle conditional breakpoint',
+        },
+        {
+          'dbl',
+          function() dap.set_breakpoint(nil, nil, vim.fn.input 'Log point message: ') end,
+          desc = 'Toggle log point',
+        },
+        -- Find DAP-related things.
+        { Leader .. 'dfc', dap_telescope.commands, desc = 'Commands' },
+        { Leader .. 'dfg', dap_telescope.configurations, desc = 'Configurations' },
+        { Leader .. 'dfb', dap_telescope.list_breakpoints, desc = 'Breakpoints' },
+        { Leader .. 'dfv', dap_telescope.variables, desc = 'Variables' },
+        { Leader .. 'dff', dap_telescope.frames, desc = 'Frames' },
+        -- Widgets.
+        { Leader .. 'dwh', dap_widgets.hover, desc = 'Hover' },
+        { Leader .. 'dwp', dap_widgets.preview, desc = 'Preview' },
+        { Leader .. 'dwf', function() dap_widgets.centered_float(dap_widgets.frames) end, desc = 'Frames' },
+        { Leader .. 'dws', function() dap_widgets.centered_float(dap_widgets.scopes) end, desc = 'Scopes' },
+      }
+    end,
+    config = function()
+      local dap_ui = require 'dapui'
       local dap_virtual_text = require 'nvim-dap-virtual-text'
 
       -- Redefine DAP signs.
@@ -209,42 +247,6 @@ return {
       dap_ui.setup()
       dap_virtual_text.setup {}
       require('telescope').load_extension 'dap'
-
-      -- Basic DAP keybindings.
-      SetG('n', 'dd', dap_ui.toggle, { desc = 'DAP UI' })
-      SetG('n', 'do', dap.repl.open, { desc = 'Open REPL' })
-      -- Run.
-      SetG('n', 'drc', dap.continue, { desc = 'Continue' })
-      SetG('n', 'drr', dap.run_last, { desc = 'Run last' })
-      -- Step.
-      SetG('n', 'dsn', dap.step_over, { desc = 'Step Next' })
-      SetG('n', 'dsi', dap.step_into, { desc = 'Step Into' })
-      SetG('n', 'dso', dap.step_out, { desc = 'Step Out' })
-      -- Breakpoints.
-      SetG('n', 'dbb', dap.toggle_breakpoint, { desc = 'Toggle breakpoint' })
-      SetG(
-        'n',
-        'dbc',
-        function() dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ') end,
-        { desc = 'Toggle conditional breakpoint' }
-      )
-      SetG(
-        'n',
-        'dbl',
-        function() dap.set_breakpoint(nil, nil, vim.fn.input 'Log point message: ') end,
-        { desc = 'Toggle log point' }
-      )
-      -- Find DAP-related things.
-      SetG('n', 'dfc', dap_telescope.commands, { desc = 'Commands' })
-      SetG('n', 'dfg', dap_telescope.configurations, { desc = 'Configurations' })
-      SetG('n', 'dfb', dap_telescope.list_breakpoints, { desc = 'Breakpoints' })
-      SetG('n', 'dfv', dap_telescope.variables, { desc = 'Variables' })
-      SetG('n', 'dff', dap_telescope.frames, { desc = 'Frames' })
-      -- Widgets.
-      SetG({ 'n', 'v' }, 'dwh', dap_widgets.hover, { desc = 'Hover' })
-      SetG({ 'n', 'v' }, 'dwp', dap_widgets.preview, { desc = 'Preview' })
-      SetG('n', 'dwf', function() dap_widgets.centered_float(dap_widgets.frames) end, { desc = 'Frames' })
-      SetG('n', 'dws', function() dap_widgets.centered_float(dap_widgets.scopes) end, { desc = 'Scopes' })
     end,
   },
   -- Language-specific support plugins.
@@ -269,39 +271,82 @@ return {
         },
       },
     },
+    ft = { 'java' },
+    keys = function()
+      local java = require 'java'
+
+      return {
+        { 'mr', java.runner.built_in.run_app, ft = { 'java' }, desc = 'Run' },
+        {
+          'mR',
+          function()
+            local input = vim.fn.input 'App arguments: '
+
+            -- Convert the input string into a table of arguments
+            local arguments = {}
+            for arg in string.gmatch(input, '%S+') do
+              table.insert(arguments, arg)
+            end
+
+            java.runner.built_in.run_app(arguments)
+          end,
+          ft = { 'java' },
+          desc = 'Run with arguments',
+        },
+        { 'ms', java.runner.built_in.stop_app, ft = { 'java' }, desc = 'Stop' },
+        { 'ml', java.runner.built_in.toggle_logs, ft = { 'java' }, desc = 'Toggle logs' },
+        { 'md', java.dap.config_dap, ft = { 'java' }, desc = 'Configure DAP' },
+        { 'mc', java.test.run_current_class, ft = { 'java' }, desc = 'Run test class' },
+        { 'mC', java.test.debug_current_class, ft = { 'java' }, desc = 'Debug test class' },
+        { 'mm', java.test.run_current_method, ft = { 'java' }, desc = 'Run test method' },
+        { 'mM', java.test.debug_current_method, ft = { 'java' }, desc = 'Debug test method' },
+        { 'mr', java.test.view_last_report, ft = { 'java' }, desc = 'View last report' },
+        { 'mu', java.profile.ui, ft = { 'java' }, desc = 'Profile UI' },
+      }
+    end,
     config = function()
       local java = require 'java'
 
       java.setup()
       require('lspconfig').jdtls.setup {}
 
-      SetG('n', 'mr', java.runner.built_in.run_app, { desc = 'Run' })
-      SetG('n', 'mR', function()
-        local input = vim.fn.input 'App arguments: '
-
-        -- Convert the input string into a table of arguments
-        local arguments = {}
-        for arg in string.gmatch(input, '%S+') do
-          table.insert(arguments, arg)
-        end
-
-        java.runner.built_in.run_app(arguments)
-      end, { desc = 'Run with arguments' })
-      SetG('n', 'ms', java.runner.built_in.stop_app, { desc = 'Stop' })
-      SetG('n', 'ml', java.runner.built_in.toggle_logs, { desc = 'Toggle logs' })
-      SetG('n', 'md', java.dap.config_dap, { desc = 'Configure DAP' })
-      SetG('n', 'mc', java.test.run_current_class, { desc = 'Run class' })
-      SetG('n', 'mC', java.test.debug_current_class, { desc = 'Debug class' })
-      SetG('n', 'mm', java.test.run_current_method, { desc = 'Run method' })
-      SetG('n', 'mM', java.test.debug_current_method, { desc = 'Debug method' })
-      SetG('n', 'mr', java.test.view_last_report, { desc = 'View last report' })
-      SetG('n', 'mu', java.profile.ui, { desc = 'Profile UI' })
+      require('which-key').register { [Leader .. 'm'] = { name = '+major' } }
     end,
   },
   {
     'scalameta/nvim-metals', -- Scala support.
     dependencies = { 'mfussenegger/nvim-dap', 'nvim-lua/plenary.nvim' },
     ft = { 'scala', 'sbt' },
+    keys = function()
+      local metals = require 'metals'
+      local tvp = require 'metals.tvp'
+
+      return {
+        {
+          'mx',
+          function() require('telescope').extensions.metals.commands() end,
+          ft = { 'scala', 'sbt' },
+          desc = 'Metals commands',
+        },
+
+        { 'mh', ':MetalsSuperMethodHierarchy<CR>', ft = { 'scala', 'sbt' }, desc = 'Method hierarchy' },
+        { 'ma', ':MetalsAnalyzeStacktrace<CR>', ft = { 'scala', 'sbt' }, desc = 'Analyze stacktrace' },
+
+        { 'mo', ':MetalsOrganizeImports<CR>', ft = { 'scala', 'sbt' }, desc = 'Organize imports' },
+
+        { 'mns', ':MetalsNewScalaFile<CR>', ft = { 'scala', 'sbt' }, desc = 'New Scala file' },
+        { 'mnj', ':MetalsNewJavaFile<CR>', ft = { 'scala', 'sbt' }, desc = 'New Java file' },
+
+        { 'mwh', metals.hover_worksheet, ft = { 'scala', 'sbt' }, desc = 'Hover expression' },
+        { 'mwy', ':MetalsCopyWorksheetOutput<CR>', ft = { 'scala', 'sbt' }, desc = 'Yank worksheet output' },
+        { 'mwq', ':MetalsQuickWorksheet<CR>', ft = { 'scala', 'sbt' }, desc = 'Create/toggle quick worksheet' },
+
+        { 'mts', tvp.toggle_tree_view, ft = { 'scala', 'sbt' }, desc = 'Toggle project tree view' },
+        { 'mtj', tvp.reveal_in_tree, ft = { 'scala', 'sbt' }, desc = 'Reveal file in project tree' },
+        { 'mtt', tvp.toggle_node, ft = { 'scala', 'sbt' }, desc = 'Toggle node' },
+        { 'mtc', tvp.node_command, ft = { 'scala', 'sbt' }, desc = 'Node command' },
+      }
+    end,
     config = function()
       local metals = require 'metals'
       local metals_cfg = metals.bare_config()
@@ -336,26 +381,14 @@ return {
         desc = 'Set Metals up',
       })
 
-      SetG('n', 'mx', function() require('telescope').extensions.metals.commands() end, { desc = 'Metals commands' })
-
-      SetG('n', 'mh', ':MetalsSuperMethodHierarchy<CR>', { desc = 'Method hierarchy' })
-      SetG('n', 'ma', ':MetalsAnalyzeStacktrace<CR>', { desc = 'Analyze stacktrace' })
-
-      SetG('n', 'mo', ':MetalsOrganizeImports<CR>', { desc = 'Organize imports' })
-
-      SetG('n', 'mns', ':MetalsNewScalaFile<CR>', { desc = 'New Scala file' })
-      SetG('n', 'mnj', ':MetalsNewJavaFile<CR>', { desc = 'New Java file' })
-
-      SetG('n', 'mwh', metals.hover_worksheet, { desc = 'Hover expression' })
-      SetG('n', 'mwy', ':MetalsCopyWorksheetOutput<CR>', { desc = 'Yank worksheet output' })
-      SetG('n', 'mwq', ':MetalsQuickWorksheet<CR>', { desc = 'Create/toggle quick worksheet' })
-
-      local tvp = require 'metals.tvp'
-
-      SetG('n', 'mts', tvp.toggle_tree_view, { desc = 'Toggle project tree view' })
-      SetG('n', 'mtj', tvp.reveal_in_tree, { desc = 'Reveal file in project tree' })
-      SetG('n', 'mtt', tvp.toggle_node, { desc = 'Toggle node' })
-      SetG('n', 'mtc', tvp.node_command, { desc = 'Node command' })
+      require('which-key').register {
+        [Leader .. 'm'] = {
+          name = '+major',
+          n = { name = '+new' },
+          t = { name = '+tvp' },
+          w = { name = '+worksheet' },
+        },
+      }
     end,
   },
 }
