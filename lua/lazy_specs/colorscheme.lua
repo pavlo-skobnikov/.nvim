@@ -1,8 +1,12 @@
 -- Let's make it purdy! 💅
-return {
-  'catppuccin/nvim', -- A purrfect colorscheme for Neovim 🐱
+return { -- A purrfect colorscheme for Neovim 🐱
+  'catppuccin/nvim',
   lazy = false,
   priority = 1000,
   main = 'catppuccin',
-  config = function() require 'plug_configs.catppuccin' end,
+  config = function()
+    require('catppuccin').setup { flavour = 'frappe' }
+
+    vim.cmd [[ colorscheme catppuccin ]]
+  end,
 }
