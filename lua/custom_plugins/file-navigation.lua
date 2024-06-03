@@ -11,8 +11,7 @@ return {
       -- Remap split mappings. Also done to not interfere with vim-tmux-navigator.
       keymaps = {
         ['<C-h>'] = false,
-        ['<C-x>'] = 'actions.select_split',
-        ['<C-s>'] = false,
+        ['<C-s>'] = 'actions.select_split',
         ['<C-v>'] = 'actions.select_vsplit',
         ['<C-l>'] = false,
         ['<C-r>'] = 'actions.refresh',
@@ -62,8 +61,8 @@ return {
 
       return {
         -- Basic actions
-        { '<M-x>', builtin.commands, desc = 'Search and execute commands' },
-        { '<M-/>', builtin.current_buffer_fuzzy_find, desc = 'Fuzzy search in buffer' },
+        { Leader .. 'fx', builtin.commands, desc = 'Search and execute commands' },
+        { Leader .. '/', builtin.current_buffer_fuzzy_find, desc = 'Fuzzy search in buffer' },
 
         { Leader .. 'fa', '<cmd>Telescope<cr>', desc = 'Telescope actions' },
         { Leader .. 'fr', builtin.resume, desc = 'Resume search' },

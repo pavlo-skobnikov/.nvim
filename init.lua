@@ -2,10 +2,10 @@
 --[[
 Define custom leader key.
 
-- Why use <M-e> instead of <SPACE> and similar?
+- Why use <C-x> instead of <SPACE> and similar?
 - This allows to have consistent keybindings across NeoVim and IntelliJ.
 ]]
-Leader = '<M-e>'
+Leader = '<C-x>' -- E[x]ecute.
 
 -- Shorter alias for setting key mappings.
 function Set(modes, keys, action, options) vim.keymap.set(modes, keys, action, options) end
