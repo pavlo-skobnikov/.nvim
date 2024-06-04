@@ -1,5 +1,5 @@
--- Let's make it purdy! 💅
-return { -- A purrfect colorscheme for Neovim 🐱
+-- A purrfect colorscheme for Neovim 🐱
+return {
   'catppuccin/nvim',
   lazy = false,
   priority = 1000,
