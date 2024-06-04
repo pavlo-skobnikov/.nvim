@@ -8,7 +8,12 @@ return {
     formatters_by_ft = {
       lua = { 'stylua' },
       kotlin = { 'ktlint' },
-      javascript = { { 'prettierd', 'prettier' } },
+      javascript = { 'prettier' },
+      typescript = { 'prettier' },
+      sh = { 'shfmt' },
+      bash = { 'shfmt' },
+      zsh = { 'shfmt' },
+      ['_'] = { 'trim_whitespace' },
     },
     -- Arguments that are passed to conform.format()
     format_on_save = { timeout_ms = 500, lsp_fallback = true },

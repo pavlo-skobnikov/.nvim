@@ -26,6 +26,12 @@ return {
       function(server_name) -- Default handler for setting up LSP servers.
         require('lspconfig')[server_name].setup { capabilities = capabilities }
       end,
+      ['bashls'] = function()
+        require('lspconfig').bashls.setup {
+          filetypes = { 'sh', 'bash', 'zsh' },
+          capabilities = capabilities,
+        }
+      end,
       ['jdtls'] = function() end, -- nvim-java handles the setup on its own.
     }
   end,

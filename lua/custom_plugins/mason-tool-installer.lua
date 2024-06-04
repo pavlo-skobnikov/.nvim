@@ -23,6 +23,9 @@ return {
       -- JavaScript.
       'typescript-language-server',
       'eslint-lsp',
+      -- Bash
+      'bash-language-server',
+      'shfmt',
       -- Other tools.
       'prettier',
     },
