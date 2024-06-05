@@ -6,7 +6,7 @@ return {
     local which_key = require 'which-key'
 
     which_key.register {
-      [Leader] = {
+      ['<LEADER>'] = {
         name = '+leader',
         d = {
           name = '+dap',
@@ -41,7 +41,7 @@ return {
     }
 
     which_key.register({
-      [Leader] = {
+      ['<LEADER>'] = {
         c = {
           name = '+chat-gpt',
           g = { name = '+generate' },

@@ -1,22 +1,7 @@
--- [[ Custom Gloabal Utilities ]]
---[[
-Define custom leader key.
-
-- Why use <C-x> instead of <SPACE> and similar?
-- This allows to have consistent keybindings across NeoVim and IntelliJ.
-]]
-Leader = '<C-x>' -- E[x]ecute.
-
--- Shorter alias for setting key mappings.
-function Set(modes, keys, action, options) vim.keymap.set(modes, keys, action, options) end
-
--- Map keys to the "global" leader key.
-function SetG(modes, keys, action, options) Set(modes, Leader .. keys, action, options) end
-
 -- [[ Load Basic Configurations ]]
 -- Register leader keys.
 vim.g.mapleader = ' '
-vim.g.maplocalleader = '\\'
+vim.g.maplocalleader = ','
 
 -- Load additional basic configurations.
 require 'basic-configurations'

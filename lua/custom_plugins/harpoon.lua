@@ -7,9 +7,9 @@ return {
     local harpoon = require 'harpoon'
 
     local mappings = {
-      { Leader .. 'ha', function() harpoon:list():add() end, desc = 'Add file' },
+      { '<LEADER>ha', function() harpoon:list():add() end, desc = 'Add file' },
       {
-        Leader .. 'hl',
+        '<LEADER>hl',
         function() harpoon.ui:toggle_quick_menu(harpoon:list()) end,
 
         desc = 'List files',

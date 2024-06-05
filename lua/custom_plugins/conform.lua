@@ -7,6 +7,7 @@ return {
   opts = {
     formatters_by_ft = {
       lua = { 'stylua' },
+      clojure = { 'zprint' },
       kotlin = { 'ktlint' },
       javascript = { 'prettier' },
       typescript = { 'prettier' },

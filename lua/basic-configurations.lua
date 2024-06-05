@@ -135,60 +135,61 @@ autocmd('LspAttach', {
     local builtin = require 'telescope.builtin'
     local function create_options(description) return { buffer = e.buf, desc = description } end
 
-    SetG('n', 'lr', vim.lsp.buf.code_action, create_options 'Refactor action')
-    SetG('n', 'll', vim.lsp.codelens.run, create_options 'Code lens')
-    SetG('n', 'ln', vim.lsp.buf.rename, create_options 'Rename')
-    SetG('n', 'lh', vim.lsp.buf.document_highlight, create_options 'Highlight')
-    SetG('n', 'lf', vim.diagnostic.open_float, create_options 'Float diagnostics')
+    vim.keymap.set('n', 'crr', vim.lsp.buf.code_action, create_options 'Refactor action')
+    vim.keymap.set('n', 'crl', vim.lsp.codelens.run, create_options 'Code lens')
+    vim.keymap.set('n', 'crn', vim.lsp.buf.rename, create_options 'Rename')
+    vim.keymap.set('n', 'crh', vim.lsp.buf.document_highlight, create_options 'Highlight')
+    vim.keymap.set('n', 'crf', vim.diagnostic.open_float, create_options 'Float diagnostics')
 
-    SetG('n', 'lgr', builtin.lsp_references, create_options 'References')
-    SetG('n', 'lgd', builtin.lsp_definitions, create_options 'Go to definition')
-    SetG('n', 'lgt', builtin.lsp_type_definitions, create_options 'Go to type definition')
-    SetG('n', 'lgi', builtin.lsp_implementations, create_options 'Go to implementation')
+    vim.keymap.set('n', 'gr', builtin.lsp_references, create_options 'References')
+    vim.keymap.set('n', 'gd', builtin.lsp_definitions, create_options 'Go to definition')
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, create_options 'Go to declaration')
+    vim.keymap.set('n', 'glt', builtin.lsp_type_definitions, create_options 'Go to type definition')
+    vim.keymap.set('n', 'gli', builtin.lsp_implementations, create_options 'Go to implementation')
 
-    SetG('n', 'ldw', builtin.diagnostics, create_options 'Workspace diagnostics')
-    SetG('n', 'ldf', function() builtin.diagnostics { bufnr = 0 } end, create_options 'File diagnostics')
+    vim.keymap.set('n', 'gldw', builtin.diagnostics, create_options 'Workspace diagnostics')
+    vim.keymap.set('n', 'gldb', function() builtin.diagnostics { bufnr = 0 } end, create_options 'Buffer diagnostics')
 
-    SetG('n', 'lsd', builtin.lsp_document_symbols, create_options 'Document symbols')
-    SetG('n', 'lsw', builtin.lsp_workspace_symbols, create_options 'Workspace symbols')
-    SetG('n', 'lss', builtin.lsp_dynamic_workspace_symbols, create_options 'Dynamic workspace symbols')
-    SetG('n', 'lst', builtin.treesitter, create_options 'Treesitter symbols')
+    vim.keymap.set('n', 'glsd', builtin.lsp_document_symbols, create_options 'Document symbols')
+    vim.keymap.set('n', 'glsw', builtin.lsp_workspace_symbols, create_options 'Workspace symbols')
+    vim.keymap.set('n', 'glss', builtin.lsp_dynamic_workspace_symbols, create_options 'Dynamic workspace symbols')
+    vim.keymap.set('n', 'glst', builtin.treesitter, create_options 'Treesitter symbols')
 
-    SetG('n', 'lco', builtin.lsp_outgoing_calls, create_options 'Outgoing calls')
-    SetG('n', 'lci', builtin.lsp_incoming_calls, create_options 'Incoming calls')
+    vim.keymap.set('n', 'glco', builtin.lsp_outgoing_calls, create_options 'Outgoing calls')
+    vim.keymap.set('n', 'glci', builtin.lsp_incoming_calls, create_options 'Incoming calls')
 
-    SetG({ 'n', 'v' }, 'li', vim.lsp.buf.hover, create_options 'Hover')
-    SetG({ 'n', 'v', 'i' }, 'lp', vim.lsp.buf.signature_help, create_options 'Signature help')
+    vim.keymap.set({ 'n', 'v' }, 'K', vim.lsp.buf.hover, create_options 'Hover')
+    vim.keymap.set({ 'n', 'v', 'i' }, '<C-S-k>', vim.lsp.buf.signature_help, create_options 'Signature help')
 
-    Set('n', '[d', vim.diagnostic.goto_prev, create_options 'Previous diagnostic')
-    Set('n', ']d', vim.diagnostic.goto_next, create_options 'Next diagnostic')
+    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, create_options 'Previous diagnostic')
+    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, create_options 'Next diagnostic')
   end,
   desc = 'Set LSP key mappings',
 })
 
 -- [[ Basig Mappings ]]
 
-Set('n', '<ESC>', function()
+vim.keymap.set('n', '<ESC>', function()
   vim.cmd ':noh'
   vim.cmd ':call clearmatches()'
   vim.lsp.buf.clear_references()
 end, { desc = 'Escape and clear highlights' })
 
-Set('n', '<C-d>', '<C-d>zz', { desc = 'Page down and center screen' })
-Set('n', '<C-u>', '<C-u>zz', { desc = 'Page up and center screen' })
+vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Page down and center screen' })
+vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Page up and center screen' })
 
 -- Trim patches of whitespace to a single space.
-Set('n', 'd<SPACE>', 'f<SPACE>diwi<SPACE><ESC>', { desc = 'Delete whitespaces' })
-Set('n', 'c<SPACE>', 'f<SPACE>diwi<SPACE>', { desc = 'Change whitespaces' })
+vim.keymap.set('n', 'd<SPACE>', 'f<SPACE>diwi<SPACE><ESC>', { desc = 'Delete whitespaces' })
+vim.keymap.set('n', 'c<SPACE>', 'f<SPACE>diwi<SPACE>', { desc = 'Change whitespaces' })
 
 -- Highlight word under cursor.
-SetG(
+vim.keymap.set(
   'n',
-  '*',
+  'g*',
   function() vim.fn.matchadd('Search', vim.fn.expand '<cword>') end,
   { desc = 'Highlight word under cursor' }
 )
 
 -- Actions without copying into the default register.
-Set('v', '<SPACE>d', '"_d', { desc = 'Delete without copying' })
-Set('v', '<SPACE>p', '"_dP', { desc = 'Paste without copying' })
+vim.keymap.set('v', '<LEADER>D', '"_d', { desc = 'Delete without copying' })
+vim.keymap.set('v', '<LEADER>P', '"_dP', { desc = 'Paste without copying' })

@@ -18,28 +18,28 @@ return {
 
     return {
       -- Basic actions.
-      { Leader .. 'fx', builtin.commands, desc = 'Search and execute commands' },
-      { Leader .. '/', builtin.current_buffer_fuzzy_find, desc = 'Fuzzy search in buffer' },
+      { '<LEADER>fx', builtin.commands, desc = 'Search and execute commands' },
+      { '<LEADER>/', builtin.current_buffer_fuzzy_find, desc = 'Fuzzy search in buffer' },
 
-      { Leader .. 'fa', '<cmd>Telescope<cr>', desc = 'Telescope actions' },
-      { Leader .. 'fr', builtin.resume, desc = 'Resume search' },
-      { Leader .. 'f<C-h>', builtin.help_tags, desc = 'Help tags' },
+      { '<LEADER>fa', '<cmd>Telescope<cr>', desc = 'Telescope actions' },
+      { '<LEADER>fr', builtin.resume, desc = 'Resume search' },
+      { '<LEADER>f<C-h>', builtin.help_tags, desc = 'Help tags' },
 
-      { Leader .. 'ff', builtin.find_files, desc = 'Find files' },
-      { Leader .. 'fh', builtin.oldfiles, desc = 'Opened files history' },
+      { '<LEADER>ff', builtin.find_files, desc = 'Find files' },
+      { '<LEADER>fh', builtin.oldfiles, desc = 'Opened files history' },
 
-      { Leader .. 'fg', builtin.live_grep, desc = 'grep' },
+      { '<LEADER>fg', builtin.live_grep, desc = 'grep' },
 
-      { Leader .. 'fq', builtin.quickfix, desc = 'Quickfix list' },
-      { Leader .. 'fQ', builtin.quickfixhistory, desc = 'Quickfix list' },
-      { Leader .. 'fR', builtin.registers, desc = 'Registers' },
+      { '<LEADER>fq', builtin.quickfix, desc = 'Quickfix list' },
+      { '<LEADER>fQ', builtin.quickfixhistory, desc = 'Quickfix list' },
+      { '<LEADER>fR', builtin.registers, desc = 'Registers' },
 
       -- Git.
-      { Leader .. 'gc', builtin.git_commits, desc = 'Commits' },
-      { Leader .. 'gC', builtin.git_bcommits, desc = 'Buffer commits' },
-      { Leader .. 'gB', builtin.git_branches, desc = 'Branches' },
-      { Leader .. 'gs', builtin.git_status, desc = 'Status' },
-      { Leader .. 'gS', builtin.git_stash, desc = 'Stash' },
+      { '<LEADER>gc', builtin.git_commits, desc = 'Commits' },
+      { '<LEADER>gC', builtin.git_bcommits, desc = 'Buffer commits' },
+      { '<LEADER>gB', builtin.git_branches, desc = 'Branches' },
+      { '<LEADER>gs', builtin.git_status, desc = 'Status' },
+      { '<LEADER>gS', builtin.git_stash, desc = 'Stash' },
     }
   end,
   opts = {

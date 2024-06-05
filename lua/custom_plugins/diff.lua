@@ -5,15 +5,15 @@ return {
   event = 'BufEnter',
   keys = {
     ---@diagnostic disable-next-line: missing-parameter
-    { Leader .. 'gd', function() MiniDiff.toggle_overlay() end, desc = 'Diff overlay' },
+    { '<LEADER>gd', function() MiniDiff.toggle_overlay() end, desc = 'Diff overlay' },
   },
   opts = {
     view = { style = 'sign' },
     mappings = {
-      -- Apply hunks inside a visual/operator region.
-      apply = Leader .. 'ghh',
+      -- Stage hunks inside a visual/operator region.
+      apply = 'ghs',
       -- Reset hunks inside a visual/operator region.
-      reset = Leader .. 'ghr',
+      reset = 'ghr',
       -- Hunk range textobject to be used inside operator.
       textobject = '',
       -- Go to hunk range in corresponding direction.

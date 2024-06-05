@@ -17,38 +17,38 @@ return {
 
     return {
       -- Basic DAP keybindings.
-      { Leader .. 'dd', dap_ui.toggle, desc = 'DAP UI' },
-      { Leader .. 'do', dap.repl.open, desc = 'Open REPL' },
+      { '<LEADER>dd', dap_ui.toggle, desc = 'DAP UI' },
+      { '<LEADER>do', dap.repl.open, desc = 'Open REPL' },
       -- Run.
-      { Leader .. 'drc', dap.continue, desc = 'Continue' },
-      { Leader .. 'drr', dap.run_last, desc = 'Run last' },
+      { '<LEADER>drc', dap.continue, desc = 'Continue' },
+      { '<LEADER>drr', dap.run_last, desc = 'Run last' },
       -- Step.
-      { Leader .. 'dsn', dap.step_over, desc = 'Step Next' },
-      { Leader .. 'dsi', dap.step_into, desc = 'Step Into' },
-      { Leader .. 'dso', dap.step_out, desc = 'Step Out' },
+      { '<LEADER>dsn', dap.step_over, desc = 'Step Next' },
+      { '<LEADER>dsi', dap.step_into, desc = 'Step Into' },
+      { '<LEADER>dso', dap.step_out, desc = 'Step Out' },
       -- Breakpoints.
-      { Leader .. 'dbb', dap.toggle_breakpoint, desc = 'Toggle breakpoint' },
+      { '<LEADER>dbb', dap.toggle_breakpoint, desc = 'Toggle breakpoint' },
       {
-        'dbc',
+        '<LEADER>dbc',
         function() dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ') end,
         desc = 'Toggle conditional breakpoint',
       },
       {
-        'dbl',
+        '<LEADER>dbl',
         function() dap.set_breakpoint(nil, nil, vim.fn.input 'Log point message: ') end,
         desc = 'Toggle log point',
       },
       -- Find DAP-related things.
-      { Leader .. 'dfc', dap_telescope.commands, desc = 'Commands' },
-      { Leader .. 'dfg', dap_telescope.configurations, desc = 'Configurations' },
-      { Leader .. 'dfb', dap_telescope.list_breakpoints, desc = 'Breakpoints' },
-      { Leader .. 'dfv', dap_telescope.variables, desc = 'Variables' },
-      { Leader .. 'dff', dap_telescope.frames, desc = 'Frames' },
+      { '<LEADER>dfc', dap_telescope.commands, desc = 'Commands' },
+      { '<LEADER>dfg', dap_telescope.configurations, desc = 'Configurations' },
+      { '<LEADER>dfb', dap_telescope.list_breakpoints, desc = 'Breakpoints' },
+      { '<LEADER>dfv', dap_telescope.variables, desc = 'Variables' },
+      { '<LEADER>dff', dap_telescope.frames, desc = 'Frames' },
       -- Widgets.
-      { Leader .. 'dwh', dap_widgets.hover, desc = 'Hover' },
-      { Leader .. 'dwp', dap_widgets.preview, desc = 'Preview' },
-      { Leader .. 'dwf', function() dap_widgets.centered_float(dap_widgets.frames) end, desc = 'Frames' },
-      { Leader .. 'dws', function() dap_widgets.centered_float(dap_widgets.scopes) end, desc = 'Scopes' },
+      { '<LEADER>dwh', dap_widgets.hover, desc = 'Hover' },
+      { '<LEADER>dwp', dap_widgets.preview, desc = 'Preview' },
+      { '<LEADER>dwf', function() dap_widgets.centered_float(dap_widgets.frames) end, desc = 'Frames' },
+      { '<LEADER>dws', function() dap_widgets.centered_float(dap_widgets.scopes) end, desc = 'Scopes' },
     }
   end,
   config = function()

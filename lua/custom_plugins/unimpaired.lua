@@ -7,7 +7,7 @@ return {
       return { mapping = mapping, description = description, dot_repeat = true }
     end
 
-    local function get_leader_mapping(mapping, description) return get_mapping(Leader .. mapping, description) end
+    local function get_leader_mapping(mapping, description) return get_mapping('<LEADER>' .. mapping, description) end
 
     return {
       default_keymaps = false,

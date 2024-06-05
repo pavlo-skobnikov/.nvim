@@ -86,7 +86,7 @@ return {
     }
 
     -- Snippet traversal mappings.
-    Set({ 'i', 's' }, '<C-n>', function() return luasnip.jump(1) end, { silent = true })
-    Set({ 'i', 's' }, '<C-p>', function() return luasnip.jump(-1) end, { silent = true })
+    vim.keymap.set({ 'i', 's' }, '<C-n>', function() return luasnip.jump(1) end, { silent = true })
+    vim.keymap.set({ 'i', 's' }, '<C-p>', function() return luasnip.jump(-1) end, { silent = true })
   end,
 }

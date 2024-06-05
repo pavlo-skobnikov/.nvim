@@ -9,6 +9,9 @@ return {
       -- Lua.
       'lua-language-server',
       'stylua',
+      -- Clojure.
+      'clojure-lsp',
+      'zprint',
       -- Kotlin.
       'kotlin-language-server',
       'kotlin-debug-adapter',

@@ -25,7 +25,7 @@ return {
     local java = require 'java'
 
     return {
-      { 'mr', java.runner.built_in.run_app, ft = { 'java' }, desc = 'Run' },
+      { '<LOCALLEADER>r', java.runner.built_in.run_app, ft = { 'java' }, desc = 'Run' },
       {
         'mR',
         function()
@@ -42,15 +42,15 @@ return {
         ft = { 'java' },
         desc = 'Run with arguments',
       },
-      { 'ms', java.runner.built_in.stop_app, ft = { 'java' }, desc = 'Stop' },
-      { 'ml', java.runner.built_in.toggle_logs, ft = { 'java' }, desc = 'Toggle logs' },
-      { 'md', java.dap.config_dap, ft = { 'java' }, desc = 'Configure DAP' },
-      { 'mc', java.test.run_current_class, ft = { 'java' }, desc = 'Run test class' },
-      { 'mC', java.test.debug_current_class, ft = { 'java' }, desc = 'Debug test class' },
-      { 'mm', java.test.run_current_method, ft = { 'java' }, desc = 'Run test method' },
-      { 'mM', java.test.debug_current_method, ft = { 'java' }, desc = 'Debug test method' },
-      { 'mr', java.test.view_last_report, ft = { 'java' }, desc = 'View last report' },
-      { 'mu', java.profile.ui, ft = { 'java' }, desc = 'Profile UI' },
+      { '<LOCALLEADER>s', java.runner.built_in.stop_app, ft = { 'java' }, desc = 'Stop' },
+      { '<LOCALLEADER>l', java.runner.built_in.toggle_logs, ft = { 'java' }, desc = 'Toggle logs' },
+      { '<LOCALLEADER>d', java.dap.config_dap, ft = { 'java' }, desc = 'Configure DAP' },
+      { '<LOCALLEADER>c', java.test.run_current_class, ft = { 'java' }, desc = 'Run test class' },
+      { '<LOCALLEADER>C', java.test.debug_current_class, ft = { 'java' }, desc = 'Debug test class' },
+      { '<LOCALLEADER>m', java.test.run_current_method, ft = { 'java' }, desc = 'Run test method' },
+      { '<LOCALLEADER>M', java.test.debug_current_method, ft = { 'java' }, desc = 'Debug test method' },
+      { '<LOCALLEADER>r', java.test.view_last_report, ft = { 'java' }, desc = 'View last report' },
+      { '<LOCALLEADER>u', java.profile.ui, ft = { 'java' }, desc = 'Profile UI' },
     }
   end,
   config = function()
@@ -58,7 +58,5 @@ return {
 
     java.setup()
     require('lspconfig').jdtls.setup {}
-
-    require('which-key').register { [Leader .. 'm'] = { name = '+major' } }
   end,
 }

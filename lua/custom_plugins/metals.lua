@@ -9,28 +9,33 @@ return {
 
     return {
       {
-        'mx',
+        '<LOCALLEADER>x',
         function() require('telescope').extensions.metals.commands() end,
         ft = { 'scala', 'sbt' },
         desc = 'Metals commands',
       },
 
-      { 'mh', ':MetalsSuperMethodHierarchy<CR>', ft = { 'scala', 'sbt' }, desc = 'Method hierarchy' },
-      { 'ma', ':MetalsAnalyzeStacktrace<CR>', ft = { 'scala', 'sbt' }, desc = 'Analyze stacktrace' },
+      { '<LOCALLEADER>h', ':MetalsSuperMethodHierarchy<CR>', ft = { 'scala', 'sbt' }, desc = 'Method hierarchy' },
+      { '<LOCALLEADER>a', ':MetalsAnalyzeStacktrace<CR>', ft = { 'scala', 'sbt' }, desc = 'Analyze stacktrace' },
 
-      { 'mo', ':MetalsOrganizeImports<CR>', ft = { 'scala', 'sbt' }, desc = 'Organize imports' },
+      { '<LOCALLEADER>o', ':MetalsOrganizeImports<CR>', ft = { 'scala', 'sbt' }, desc = 'Organize imports' },
 
-      { 'mns', ':MetalsNewScalaFile<CR>', ft = { 'scala', 'sbt' }, desc = 'New Scala file' },
-      { 'mnj', ':MetalsNewJavaFile<CR>', ft = { 'scala', 'sbt' }, desc = 'New Java file' },
+      { '<LOCALLEADER>ns', ':MetalsNewScalaFile<CR>', ft = { 'scala', 'sbt' }, desc = 'New Scala file' },
+      { '<LOCALLEADER>nj', ':MetalsNewJavaFile<CR>', ft = { 'scala', 'sbt' }, desc = 'New Java file' },
 
-      { 'mwh', metals.hover_worksheet, ft = { 'scala', 'sbt' }, desc = 'Hover expression' },
-      { 'mwy', ':MetalsCopyWorksheetOutput<CR>', ft = { 'scala', 'sbt' }, desc = 'Yank worksheet output' },
-      { 'mwq', ':MetalsQuickWorksheet<CR>', ft = { 'scala', 'sbt' }, desc = 'Create/toggle quick worksheet' },
+      { '<LOCALLEADER>wh', metals.hover_worksheet, ft = { 'scala', 'sbt' }, desc = 'Hover expression' },
+      { '<LOCALLEADER>wy', ':MetalsCopyWorksheetOutput<CR>', ft = { 'scala', 'sbt' }, desc = 'Yank worksheet output' },
+      {
+        '<LOCALLEADER>wq',
+        ':MetalsQuickWorksheet<CR>',
+        ft = { 'scala', 'sbt' },
+        desc = 'Create/toggle quick worksheet',
+      },
 
-      { 'mts', tvp.toggle_tree_view, ft = { 'scala', 'sbt' }, desc = 'Toggle project tree view' },
-      { 'mtj', tvp.reveal_in_tree, ft = { 'scala', 'sbt' }, desc = 'Reveal file in project tree' },
-      { 'mtt', tvp.toggle_node, ft = { 'scala', 'sbt' }, desc = 'Toggle node' },
-      { 'mtc', tvp.node_command, ft = { 'scala', 'sbt' }, desc = 'Node command' },
+      { '<LOCALLEADER>ts', tvp.toggle_tree_view, ft = { 'scala', 'sbt' }, desc = 'Toggle project tree view' },
+      { '<LOCALLEADER>tj', tvp.reveal_in_tree, ft = { 'scala', 'sbt' }, desc = 'Reveal file in project tree' },
+      { '<LOCALLEADER>tt', tvp.toggle_node, ft = { 'scala', 'sbt' }, desc = 'Toggle node' },
+      { '<LOCALLEADER>tc', tvp.node_command, ft = { 'scala', 'sbt' }, desc = 'Node command' },
     }
   end,
   config = function()
@@ -69,8 +74,7 @@ return {
     })
 
     require('which-key').register {
-      [Leader .. 'm'] = {
-        name = '+major',
+      ['<LOCALLEADER>'] = {
         n = { name = '+new' },
         t = { name = '+tvp' },
         w = { name = '+worksheet' },
