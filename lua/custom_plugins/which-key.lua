@@ -50,6 +50,7 @@ return {
           name = '+dap',
           w = { name = '+widgets' },
         },
+        j = { name = '+jump' },
         g = {
           name = '+git',
           h = { name = '+hunk' },

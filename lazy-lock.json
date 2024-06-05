@@ -11,6 +11,7 @@
   "conform.nvim": { "branch": "master", "commit": "63e0a32c85a39484813957dc480f171907aa90b9" },
   "conjure": { "branch": "master", "commit": "e97e0db338f76f943f3043089000252adbecc966" },
   "copilot.vim": { "branch": "release", "commit": "53d3091be388ff1edacdb84421ccfa19a446a84d" },
+  "flash.nvim": { "branch": "main", "commit": "43f67935d388fbb540f8b40e8cbfd80de54f978a" },
   "friendly-snippets": { "branch": "main", "commit": "d0610077b6129cf9f7f78afbe3a1425d60f6e2f1" },
   "gp.nvim": { "branch": "main", "commit": "486a061d95a50e3c9a2e7c0309464fd32e3df590" },
   "harpoon": { "branch": "harpoon2", "commit": "0378a6c428a0bed6a2781d459d7943843f374bce" },
