@@ -1,13 +1,13 @@
--- A purrfect colorscheme for Neovim 🐱
+-- A groovy colorscheme for Neovim 🐱
 return {
-  'catppuccin/nvim',
+  'ellisonleao/gruvbox.nvim',
   lazy = false,
   priority = 1000,
   main = 'catppuccin',
-  opts = { flavour = 'frappe' },
+  opts = {},
   config = function(_, opts)
-    require('catppuccin').setup(opts)
+    require('gruvbox').setup(opts)
 
-    vim.cmd [[ colorscheme catppuccin ]]
+    vim.cmd [[ colorscheme gruvbox ]]
   end,
 }
